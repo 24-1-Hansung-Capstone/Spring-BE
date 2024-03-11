@@ -3,7 +3,7 @@ package com.example.HansungCapstone;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
-//@CrossOrigin // TODO : cors 설정 필요할 수 있음
+@CrossOrigin(origins = {"http://localhost:3000",}) // TODO : cors 설정 필요할 수 있음
 public class SearchController {
 
     @GetMapping("/search")
