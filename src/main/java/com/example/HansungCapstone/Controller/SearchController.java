@@ -1,4 +1,4 @@
-package com.example.HansungCapstone;
+package com.example.HansungCapstone.Controller;
 
 import org.springframework.web.bind.annotation.*;
 

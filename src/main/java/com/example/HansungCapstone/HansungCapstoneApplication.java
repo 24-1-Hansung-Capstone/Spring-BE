@@ -9,5 +9,4 @@ public class HansungCapstoneApplication {
 	public static void main(String[] args) {
 		SpringApplication.run(HansungCapstoneApplication.class, args);
 	}
-
 }
