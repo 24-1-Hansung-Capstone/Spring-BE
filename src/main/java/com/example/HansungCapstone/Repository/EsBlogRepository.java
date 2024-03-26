@@ -24,7 +24,6 @@ public class EsBlogRepository{
                         .query(q -> q
                                 .term(t -> t
                                         .field("mainBody")
-                                        .field("title")
                                         .value(v -> v.stringValue(query))
                                 )),
                 EsBlogDto.class);
