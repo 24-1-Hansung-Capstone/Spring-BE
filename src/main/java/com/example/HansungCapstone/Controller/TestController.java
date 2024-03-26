@@ -36,17 +36,17 @@ public class TestController {
 
 
     @Autowired
-    private ElasticSearchConfig elasticSearchConfig;
+    private ElasticsearchClient esClient;
     @GetMapping("/searchTest")
     public String searchTest(@RequestParam String query) throws IOException {
         StringBuilder result = new StringBuilder("input query : " + query + "<br>");
 
-        ElasticsearchClient esClient = new ElasticsearchClient(
-                new RestClientTransport(
-                        elasticSearchConfig.restClient(),
-                        new JacksonJsonpMapper()
-                )
-        );
+//        ElasticsearchClient esClient = new ElasticsearchClient(
+//                new RestClientTransport(
+//                        elasticSearchConfig.restClient(),
+//                        new JacksonJsonpMapper()
+//                )
+//        );
 
 //        try {
             SearchResponse<Test> search = esClient.search(s -> s
@@ -58,6 +58,7 @@ public class TestController {
                                             .value(v -> v.stringValue(query))
                                     )),
                     Test.class);
+
             for (var hit: search.hits().hits()) {
                 result.append(hit.source().title + " : " + hit.source().main + "<br>");
             }
