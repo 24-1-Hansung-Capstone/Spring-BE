@@ -8,7 +8,7 @@ import org.springframework.data.elasticsearch.annotations.Document;
 import java.util.Date;
 
 @Getter @Setter
-@Document(indexName = "test")
+@Document(indexName = "blog")
 public final class EsBlogDto implements EsDto {
     private String title;
     private String url;
