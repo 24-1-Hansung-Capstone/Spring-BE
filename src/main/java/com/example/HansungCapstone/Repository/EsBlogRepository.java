@@ -2,6 +2,7 @@ package com.example.HansungCapstone.Repository;
 
 import co.elastic.clients.elasticsearch.ElasticsearchClient;
 import co.elastic.clients.elasticsearch.core.SearchResponse;
+import com.example.HansungCapstone.DTO.Es.EsDto;
 import com.example.HansungCapstone.DTO.Es.Impl.EsBlogDto;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
@@ -16,8 +17,8 @@ public class EsBlogRepository{
     @Autowired
     private ElasticsearchClient elasticsearchClient;
 
-    public List<EsBlogDto> search(String query) throws IOException {
-        ArrayList<EsBlogDto> results = new ArrayList<>();
+    public List<EsDto> search(String query) throws IOException {
+        ArrayList<EsDto> results = new ArrayList<>();
 
         SearchResponse<EsBlogDto> search = elasticsearchClient.search(s -> s
                         .index("blog")

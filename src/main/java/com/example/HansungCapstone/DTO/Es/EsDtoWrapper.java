@@ -7,4 +7,5 @@ import lombok.Setter;
 public class EsDtoWrapper{
     public EsDto esDto;
     public String preview;
+    public String category;
 }

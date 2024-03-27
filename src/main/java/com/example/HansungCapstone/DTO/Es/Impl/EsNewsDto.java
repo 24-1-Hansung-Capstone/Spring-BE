@@ -12,7 +12,6 @@ import org.springframework.data.elasticsearch.annotations.Document;
 @NoArgsConstructor
 @Document(indexName = "news")
 public class EsNewsDto implements EsDto {
-
     private String title;
     private String url;
     private String content;
