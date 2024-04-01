@@ -20,14 +20,19 @@ public class EsCrimeDto implements EsDto {
 
     private float sum_generation;
     private float sum_arrest;
+
     private float murder_generation;
     private float murder_arrest;
+
     private float robbery_generation;
     private float robbery_arrest;
+
     private float rape_generation;
     private float rape_arrest;
+
     private float theft_generation;
     private float theft_arrest;
+
     private float violence_generation;
     private float violence_arrest;
 }

@@ -6,6 +6,8 @@ import com.example.HansungCapstone.DTO.Es.Impl.EsBlogDto;
 import com.example.HansungCapstone.DTO.Es.Impl.EsNewsDto;
 import com.example.HansungCapstone.DTO.Es.Impl.EsVisitkoreaDto;
 import com.example.HansungCapstone.Repository.EsBlogRepository;
+import com.example.HansungCapstone.Repository.EsNewsRepository;
+import com.example.HansungCapstone.Repository.EsVisitkoreaRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -49,7 +51,7 @@ public class EsSearchService {
 
             //set wrapper
             esDtoWrapper.setEsDto(esNewsDto);
-            esDtoWrapper.setPreview(((EsNewsDto)esNewsDto).getContent().substring(0, 10));
+            esDtoWrapper.setPreview(((EsNewsDto)esNewsDto).getMainBody().substring(0, 10));
             esDtoWrapper.setCategory("news");
 
             //add results

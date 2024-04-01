@@ -18,14 +18,15 @@ public class EsVisitkoreaDto implements EsDto {
 
     @Field(type = FieldType.Text)
     private String title;
+
     @Field(type = FieldType.Text)
     private String location;
+
     @Field(type = FieldType.Text)
     private String description;
+
     @Field(type = FieldType.Text)
     private String tag;
-    @Field(type = FieldType.Text)
-    private String closure;
 
     private String photo_url;   //HyperLink
 }

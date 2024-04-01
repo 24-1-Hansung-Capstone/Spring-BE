@@ -14,6 +14,7 @@ import org.springframework.data.elasticsearch.annotations.Document;
 public class EsNewsDto implements EsDto {
     private String title;
     private String url;
-    private String content;
+
+    private String mainBody;
     private String date;
 }
