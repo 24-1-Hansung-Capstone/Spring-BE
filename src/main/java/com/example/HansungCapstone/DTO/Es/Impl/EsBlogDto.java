@@ -8,14 +8,20 @@ import org.springframework.data.elasticsearch.annotations.Document;
 import java.util.Date;
 
 @Getter @Setter
-@Document(indexName = "blog2")
+@Document(indexName = "blog")
 public final class EsBlogDto implements EsDto {
-    private String category;
-    private String preview;
-
     private String title;
     private String url;
-
     private String mainBody;
     private Date date;
+
+    @Override
+    public String getPreview() {
+        return mainBody.substring(0, 50);
+    }
+
+    @Override
+    public String getCategory() {
+        return "blog";
+    }
 }

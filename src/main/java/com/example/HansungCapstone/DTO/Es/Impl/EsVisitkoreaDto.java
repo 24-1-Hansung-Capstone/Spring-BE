@@ -29,4 +29,14 @@ public class EsVisitkoreaDto implements EsDto {
     private String tag;
 
     private String photo_url;   //HyperLink
+
+    @Override
+    public String getPreview() {
+        return description.substring(0, 30);
+    }
+
+    @Override
+    public String getCategory() {
+        return "visitkorea";
+    }
 }

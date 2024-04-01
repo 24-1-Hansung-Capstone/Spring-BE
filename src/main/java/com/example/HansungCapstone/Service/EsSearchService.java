@@ -28,35 +28,27 @@ public class EsSearchService {
 
     public List<EsDtoWrapper> search(String query) throws IOException {
         //repo search
-        List<EsDto> esBlogDtos = esBlogRepository.search(query);
-        List<EsDto> esNewsDtos = esNewsRepository.search(query);
-        List<EsDto> esVisitKoreaDtos = esVisitkoreaRepository.search(query);
+        List<EsDto> esDtos = new ArrayList<>();
+        esDtos.addAll(esBlogRepository.search(query));
+        //esDtos.addAll(esNewsRepository.search(query));
+        //esDtos.addAll(esVisitkoreaRepository.search(query));
 
         //results
         List<EsDtoWrapper> esDtoWrappers = new ArrayList<>();
-
-        //esBlogDto add
-        addBlogResults(esBlogDtos, esDtoWrappers);
-        addNewsResults(esNewsDtos, esDtoWrappers);
-        addVisitKoreaResults(esVisitKoreaDtos, esDtoWrappers);
-
-
-        return esDtoWrappers;
-    }
-
-    private static void addNewsResults(List<EsDto> esNewsDtos, List<EsDtoWrapper> esDtoWrappers) {
-        for (EsDto esNewsDto: esNewsDtos){
+        for (EsDto esDto: esDtos){
             //create wrapper
             EsDtoWrapper esDtoWrapper = new EsDtoWrapper();
 
             //set wrapper
-            esDtoWrapper.setEsDto(esNewsDto);
-            esDtoWrapper.setPreview(((EsNewsDto)esNewsDto).getMainBody().substring(0, 10));
-            esDtoWrapper.setCategory("news");
+            esDtoWrapper.setEsDto(esDto);
+            esDtoWrapper.setPreview(esDto.getPreview());
+            esDtoWrapper.setCategory(esDto.getCategory());
 
             //add results
             esDtoWrappers.add(esDtoWrapper);
         }
+
+        return esDtoWrappers;
     }
 
     private static void addBlogResults(List<EsDto> esBlogDtos, List<EsDtoWrapper> esDtoWrappers) {
@@ -73,21 +65,5 @@ public class EsSearchService {
             esDtoWrappers.add(esDtoWrapper);
         }
     }
-
-    private static void addVisitKoreaResults(List<EsDto> esVisitKoreaDtos, List<EsDtoWrapper> esDtoWrappers) {
-        for (EsDto esVisitKoreaDto: esVisitKoreaDtos){
-            //create wrapper
-            EsDtoWrapper esDtoWrapper = new EsDtoWrapper();
-
-            //set wrapper
-            esDtoWrapper.setEsDto(esVisitKoreaDto);
-            esDtoWrapper.setPreview(((EsVisitkoreaDto)esVisitKoreaDto).getDescription().substring(0, 10));
-            esDtoWrapper.setCategory("visitkorea");
-
-            //add results
-            esDtoWrappers.add(esDtoWrapper);
-        }
-    }
-
 
 }

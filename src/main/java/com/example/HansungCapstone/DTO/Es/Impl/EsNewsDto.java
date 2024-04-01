@@ -17,4 +17,14 @@ public class EsNewsDto implements EsDto {
 
     private String mainBody;
     private String date;
+
+    @Override
+    public String getPreview() {
+        return mainBody.substring(0, 50);
+    }
+
+    @Override
+    public String getCategory() {
+        return "news";
+    }
 }

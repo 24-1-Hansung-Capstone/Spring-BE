@@ -37,4 +37,14 @@ public class EsZigbangDto implements EsDto {
     private float aroundScore;
     @Field(type = FieldType.Text)
     private String aroundDesc;
+
+    @Override
+    public String getPreview() {
+        return null;
+    }
+
+    @Override
+    public String getCategory() {
+        return "zigbang";
+    }
 }

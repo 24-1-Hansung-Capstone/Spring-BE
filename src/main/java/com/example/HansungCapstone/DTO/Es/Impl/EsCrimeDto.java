@@ -35,4 +35,14 @@ public class EsCrimeDto implements EsDto {
 
     private float violence_generation;
     private float violence_arrest;
+
+    @Override
+    public String getPreview() {
+        return null;
+    }
+
+    @Override
+    public String getCategory() {
+        return "crime";
+    }
 }
