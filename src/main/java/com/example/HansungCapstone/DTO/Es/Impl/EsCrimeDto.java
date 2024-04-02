@@ -45,4 +45,9 @@ public class EsCrimeDto implements EsDto {
     public String getCategory() {
         return "crime";
     }
+
+    @Override
+    public double getScore() {
+        return 0;
+    }
 }

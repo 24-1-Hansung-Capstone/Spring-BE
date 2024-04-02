@@ -26,13 +26,22 @@ public class EsVisitkoreaDto implements EsDto {
     private String description;
 
     @Field(type = FieldType.Text)
-    private String tag;
+    private String tags;
 
-    private String photo_url;   //HyperLink
+    private String photoURL;   //HyperLink
+
+    private double score;
 
     @Override
     public String getPreview() {
-        return description.substring(0, 30);
+        String preview;
+        try {
+            preview = description.substring(0, 30);
+        }
+        catch (IndexOutOfBoundsException iobe) {
+            preview = description;
+        }
+        return preview;
     }
 
     @Override
