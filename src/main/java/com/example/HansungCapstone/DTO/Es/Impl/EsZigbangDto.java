@@ -38,6 +38,8 @@ public class EsZigbangDto implements EsDto {
     @Field(type = FieldType.Text)
     private String aroundDesc;
 
+    private double score;
+
     @Override
     public String getPreview() {
         return null;

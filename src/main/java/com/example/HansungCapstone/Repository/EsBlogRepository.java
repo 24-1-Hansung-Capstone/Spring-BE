@@ -30,7 +30,9 @@ public class EsBlogRepository{
                 EsBlogDto.class);
 
         for (var hit: search.hits().hits()) {
-            results.add(hit.source());
+            EsBlogDto res = hit.source();
+            res.setScore(hit.score());
+            results.add(res);
         }
 
         return results;

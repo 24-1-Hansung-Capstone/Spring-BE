@@ -13,7 +13,9 @@ import org.springframework.stereotype.Service;
 
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Comparator;
 import java.util.List;
+import java.util.Collections;
 
 @Service
 public class EsSearchService {
@@ -31,7 +33,7 @@ public class EsSearchService {
         List<EsDto> esDtos = new ArrayList<>();
         esDtos.addAll(esBlogRepository.search(query));
         //esDtos.addAll(esNewsRepository.search(query));
-        //esDtos.addAll(esVisitkoreaRepository.search(query));
+        esDtos.addAll(esVisitkoreaRepository.search(query));
 
         //results
         List<EsDtoWrapper> esDtoWrappers = new ArrayList<>();
@@ -47,6 +49,14 @@ public class EsSearchService {
             //add results
             esDtoWrappers.add(esDtoWrapper);
         }
+
+        esDtoWrappers.sort(new Comparator<EsDtoWrapper>() {
+            @Override
+            public int compare(EsDtoWrapper o1, EsDtoWrapper o2) {
+                // score를 비교하여 내림차순으로 정렬
+                return Double.compare(o2.esDto.getScore(), o1.esDto.getScore());
+            }
+        });
 
         return esDtoWrappers;
     }

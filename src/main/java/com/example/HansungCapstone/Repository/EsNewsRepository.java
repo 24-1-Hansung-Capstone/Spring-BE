@@ -30,7 +30,9 @@ public class EsNewsRepository{
                 EsNewsDto.class);
 
         for (var hit: search.hits().hits()) {
-            results.add(hit.source());
+            EsNewsDto res = hit.source();
+            res.setScore(hit.score());
+            results.add(res);
         }
 
         return results;

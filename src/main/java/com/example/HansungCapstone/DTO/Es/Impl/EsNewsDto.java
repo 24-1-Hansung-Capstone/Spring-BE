@@ -17,6 +17,7 @@ public class EsNewsDto implements EsDto {
 
     private String mainBody;
     private String date;
+    private double score;
 
     @Override
     public String getPreview() {

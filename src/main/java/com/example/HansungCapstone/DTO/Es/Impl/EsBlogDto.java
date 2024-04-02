@@ -14,6 +14,7 @@ public final class EsBlogDto implements EsDto {
     private String url;
     private String mainBody;
     private Date date;
+    private double score;
 
     @Override
     public String getPreview() {

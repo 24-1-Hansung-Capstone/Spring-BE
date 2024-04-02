@@ -54,7 +54,9 @@ public class EsVisitkoreaRepository{
                 EsVisitkoreaDto.class);
 
         for (var hit: search.hits().hits()) {
-            results.add(hit.source());
+            EsVisitkoreaDto res = hit.source();
+            res.setScore(hit.score());
+            results.add(res);
         }
 
         return results;
