@@ -30,6 +30,8 @@ public class EsVisitkoreaDto implements EsDto {
 
     private String photoURL;   //HyperLink
 
+    private String url;
+
     private double score;
 
     @Override

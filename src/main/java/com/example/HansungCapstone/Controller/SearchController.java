@@ -1,12 +1,11 @@
 package com.example.HansungCapstone.Controller;
 
 import com.example.HansungCapstone.DTO.Es.EsDtoWrapper;
-import com.example.HansungCapstone.Service.EsSearchService;
+import com.example.HansungCapstone.Service.Es.EsSearchService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import java.io.IOException;
-import java.util.ArrayList;
 import java.util.List;
 
 @RestController

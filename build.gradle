@@ -29,6 +29,7 @@ dependencies {
 	implementation 'co.elastic.clients:elasticsearch-java:8.12.2'
 	implementation 'com.fasterxml.jackson.core:jackson-databind:2.16.1'
 	implementation 'org.springframework.boot:spring-boot-starter-data-elasticsearch'
+	implementation 'com.google.code.gson:gson:2.9.1'
 }
 
 tasks.named('test') {

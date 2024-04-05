@@ -1,9 +1,9 @@
-package com.example.HansungCapstone.Repository;
+package com.example.HansungCapstone.Repository.Es;
 
 import co.elastic.clients.elasticsearch.ElasticsearchClient;
 import co.elastic.clients.elasticsearch.core.SearchResponse;
 import com.example.HansungCapstone.DTO.Es.EsDto;
-import com.example.HansungCapstone.DTO.Es.Impl.EsBlogDto;
+import com.example.HansungCapstone.DTO.Es.Impl.EsNewsDto;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
@@ -12,7 +12,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Repository
-public class EsBlogRepository{
+public class EsNewsRepository{
 
     @Autowired
     private ElasticsearchClient elasticsearchClient;
@@ -20,17 +20,17 @@ public class EsBlogRepository{
     public List<EsDto> search(String query) throws IOException {
         ArrayList<EsDto> results = new ArrayList<>();
 
-        SearchResponse<EsBlogDto> search = elasticsearchClient.search(s -> s
-                        .index("blog")
+        SearchResponse<EsNewsDto> search = elasticsearchClient.search(s -> s
+                        .index("news")
                         .query(q -> q
                                 .term(t -> t
                                         .field("mainBody")
                                         .value(v -> v.stringValue(query))
-                                )) ,
-                EsBlogDto.class);
+                                )),
+                EsNewsDto.class);
 
         for (var hit: search.hits().hits()) {
-            EsBlogDto res = hit.source();
+            EsNewsDto res = hit.source();
             res.setScore(hit.score());
             results.add(res);
         }

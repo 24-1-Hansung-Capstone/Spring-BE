@@ -1,13 +1,11 @@
-package com.example.HansungCapstone.Service;
+package com.example.HansungCapstone.Service.Es;
 
 import com.example.HansungCapstone.DTO.Es.EsDto;
 import com.example.HansungCapstone.DTO.Es.EsDtoWrapper;
 import com.example.HansungCapstone.DTO.Es.Impl.EsBlogDto;
-import com.example.HansungCapstone.DTO.Es.Impl.EsNewsDto;
-import com.example.HansungCapstone.DTO.Es.Impl.EsVisitkoreaDto;
-import com.example.HansungCapstone.Repository.EsBlogRepository;
-import com.example.HansungCapstone.Repository.EsNewsRepository;
-import com.example.HansungCapstone.Repository.EsVisitkoreaRepository;
+import com.example.HansungCapstone.Repository.Es.EsBlogRepository;
+import com.example.HansungCapstone.Repository.Es.EsNewsRepository;
+import com.example.HansungCapstone.Repository.Es.EsVisitkoreaRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -15,7 +13,6 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.List;
-import java.util.Collections;
 
 @Service
 public class EsSearchService {

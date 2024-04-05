@@ -1,4 +1,4 @@
-package com.example.HansungCapstone.Repository;
+package com.example.HansungCapstone.Repository.Es;
 
 import co.elastic.clients.elasticsearch.ElasticsearchClient;
 import co.elastic.clients.elasticsearch._types.query_dsl.MatchQuery;
