@@ -27,7 +27,7 @@ jobs:
     - name: move to main branch
       uses: actions/checkout@v4
       with:
-        ref: production
+        ref: main
       
     - name: Set up JDK 17
       uses: actions/setup-java@v4
