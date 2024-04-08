@@ -17,7 +17,7 @@ repositories {
 
 dependencies {
 	implementation 'org.springframework.boot:spring-boot-starter-web'
-//	implementation 'org.springframework.boot:spring-boot-starter-data-jpa'
+	implementation 'org.springframework.boot:spring-boot-starter-data-jpa'
 	testImplementation 'org.springframework.boot:spring-boot-starter-test'
 
 	compileOnly 'org.projectlombok:lombok:1.18.30'
@@ -32,6 +32,8 @@ dependencies {
 	implementation 'com.google.code.gson:gson:2.9.1'
 
 	implementation 'org.springframework.boot:spring-boot-starter-webflux'
+
+	implementation 'mysql:mysql-connector-java:8.0.31'
 }
 
 tasks.named('test') {
