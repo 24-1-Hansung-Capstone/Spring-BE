@@ -57,20 +57,4 @@ public class EsSearchService {
 
         return esDtoWrappers;
     }
-
-    private static void addBlogResults(List<EsDto> esBlogDtos, List<EsDtoWrapper> esDtoWrappers) {
-        for (EsDto esBlogDto: esBlogDtos){
-            //create wrapper
-            EsDtoWrapper esDtoWrapper = new EsDtoWrapper();
-
-            //set wrapper
-            esDtoWrapper.setEsDto(esBlogDto);
-            esDtoWrapper.setPreview(((EsBlogDto)esBlogDto).getMainBody().substring(0, 10));
-            esDtoWrapper.setCategory("blog");
-
-            //add results
-            esDtoWrappers.add(esDtoWrapper);
-        }
-    }
-
 }
