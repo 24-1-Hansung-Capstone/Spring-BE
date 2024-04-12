@@ -9,6 +9,8 @@ import com.example.HansungCapstone.Service.Apply.APTApplyService;
 import com.example.HansungCapstone.Service.Es.EsSearchService;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.scheduling.annotation.EnableScheduling;
+import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.web.bind.annotation.*;
 
 import java.io.IOException;
@@ -36,12 +38,15 @@ public class SearchController {
     public List<HouseApply> apiTest() throws IOException {
         return aptApplyRepository.getApplies();
     }
-    @GetMapping("/apttest")
-    public void apiTest2() throws IOException {
+
+    @Scheduled(cron = "0 0 18 * * *") // 매일 18시마다 함수 실행
+    @GetMapping("/saveApplies")
+    public void saveApplies() throws IOException {
         aptApplyService.saveAppliesToDatabase();
     }
-    @GetMapping("/apttest2")
-    public Optional<HouseApply> apiTest3() throws IOException{
+
+    @GetMapping("/findApply")
+    public Optional<HouseApply> findApply() throws IOException{
        return aptApplyService.getApplyById("포제스 한강");
     }
 }
