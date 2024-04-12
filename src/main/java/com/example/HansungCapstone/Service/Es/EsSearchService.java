@@ -28,9 +28,9 @@ public class EsSearchService {
     public List<EsDtoWrapper> search(String query) throws IOException {
         //repo search
         List<EsDto> esDtos = new ArrayList<>();
+        esDtos.addAll(esVisitkoreaRepository.search(query));
         esDtos.addAll(esBlogRepository.search(query));
         //esDtos.addAll(esNewsRepository.search(query));
-        esDtos.addAll(esVisitkoreaRepository.search(query));
 
         //results
         List<EsDtoWrapper> esDtoWrappers = new ArrayList<>();

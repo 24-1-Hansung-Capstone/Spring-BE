@@ -18,6 +18,7 @@ public class SearchController {
 
     @GetMapping("/search")
     public List<EsDtoWrapper> search(@RequestParam String query) throws IOException {
+
         return esSearchService.search(query);
     }
 }

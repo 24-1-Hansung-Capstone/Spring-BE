@@ -1,6 +1,7 @@
 package com.example.HansungCapstone.Repository.Es;
 
 import co.elastic.clients.elasticsearch.ElasticsearchClient;
+import co.elastic.clients.elasticsearch._types.query_dsl.FuzzyQuery;
 import co.elastic.clients.elasticsearch.core.SearchResponse;
 import com.example.HansungCapstone.DTO.Es.EsDto;
 import com.example.HansungCapstone.DTO.Es.Impl.EsBlogDto;
@@ -20,14 +21,28 @@ public class EsBlogRepository{
     public List<EsDto> search(String query) throws IOException {
         ArrayList<EsDto> results = new ArrayList<>();
 
+//        SearchResponse<EsBlogDto> search = elasticsearchClient.search(s -> s
+//                        .index("blog")
+//                        .query(q -> q
+//                                .fuzzy(FuzzyQuery.of(FuzzyQuery)_)
+//                                .term(t -> t
+//                                        .field("mainBody")
+//                                        .value(v -> v.stringValue(query))
+//
+//                                )
+//                        ) ,
+//                EsBlogDto.class);
         SearchResponse<EsBlogDto> search = elasticsearchClient.search(s -> s
                         .index("blog")
                         .query(q -> q
-                                .term(t -> t
+                                .fuzzy(f -> f
                                         .field("mainBody")
-                                        .value(v -> v.stringValue(query))
-                                )) ,
+                                        .value(query)
+                                        .fuzziness("AUTO")
+                                )
+                        ),
                 EsBlogDto.class);
+
 
         for (var hit: search.hits().hits()) {
             EsBlogDto res = hit.source();
