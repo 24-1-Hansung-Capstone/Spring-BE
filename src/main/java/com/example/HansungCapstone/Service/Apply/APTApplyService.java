@@ -15,6 +15,7 @@ public class APTApplyService {
 
     @Autowired
     private APTApplyRepository aptApplyRepository;
+
     @Autowired
     private HouseDBRepository houseDBRepository;
 

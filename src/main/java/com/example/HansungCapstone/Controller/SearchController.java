@@ -2,10 +2,6 @@ package com.example.HansungCapstone.Controller;
 
 import com.example.HansungCapstone.DTO.Es.EsDtoWrapper;
 import com.example.HansungCapstone.DTO.HouseApply.HouseApply;
-import com.example.HansungCapstone.DTO.HouseApply.impl.APTApply;
-import com.example.HansungCapstone.Repository.Apply.HouseApplyRepository;
-import com.example.HansungCapstone.Repository.Apply.Impl.APTApplyRepository;
-import com.example.HansungCapstone.Service.Apply.APTApplyService;
 import com.example.HansungCapstone.Service.Es.EsSearchService;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -24,13 +20,8 @@ public class SearchController {
     @Autowired
     private EsSearchService esSearchService;
 
-    @Autowired
-    private APTApplyRepository aptApplyRepository;
-    @Autowired
-    private APTApplyService aptApplyService;
-
     @GetMapping("/search")
-    public List<EsDtoWrapper> searchTest(@RequestParam String query) throws IOException {
+    public List<EsDtoWrapper> search(@RequestParam String query) throws IOException {
         return esSearchService.search(query);
     }
 

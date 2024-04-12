@@ -1,4 +1,4 @@
-package com.example.HansungCapstone.Controller;
+package com.example.HansungCapstone;
 
 import co.elastic.clients.elasticsearch.ElasticsearchClient;
 import co.elastic.clients.json.jackson.JacksonJsonpMapper;
