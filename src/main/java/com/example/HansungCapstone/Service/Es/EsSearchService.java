@@ -30,7 +30,7 @@ public class EsSearchService {
         List<EsDto> esDtos = new ArrayList<>();
         esDtos.addAll(esVisitkoreaRepository.search(query));
         esDtos.addAll(esBlogRepository.search(query));
-        //esDtos.addAll(esNewsRepository.search(query));
+        esDtos.addAll(esNewsRepository.search(query));
 
         //results
         List<EsDtoWrapper> esDtoWrappers = new ArrayList<>();
