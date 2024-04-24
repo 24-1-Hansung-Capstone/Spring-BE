@@ -33,9 +33,10 @@ public class SearchController {
         return esSearchService.search(query);
     }
 
-    @GetMapping("/apt")
-    public List<HouseApply> apiTest() throws IOException {
-        return aptApplyRepository.getApplies();
+    @GetMapping("/getAllApply")
+    public List<HouseApply> getAllApply() throws IOException {
+        //return aptApplyRepository.getApplies();
+        return aptApplyService.getSavedApplies();
     }
 
     @Scheduled(cron = "0 0 18 * * *") // 매일 18시마다 함수 실행
@@ -45,7 +46,10 @@ public class SearchController {
     }
 
     @GetMapping("/findApply")
-    public Optional<HouseApply> findApply() throws IOException{
-       return aptApplyService.getApplyById("포제스 한강");
+    public Optional<HouseApply> findApply(@RequestParam(name = "house_NM") String house_NM,
+                                          @RequestParam(name = "hssply_ADRES") String hssply_ADES
+                                          ) throws IOException{
+        //gma.....
+       return aptApplyService.getApplyById(house_NM);
     }
 }
