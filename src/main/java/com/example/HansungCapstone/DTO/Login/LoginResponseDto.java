@@ -1,6 +1,6 @@
 package com.example.HansungCapstone.DTO.Login;
 
-import jakarta.validation.constraints.NotBlank;
+import com.example.HansungCapstone.Domain.User;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -8,9 +8,8 @@ import lombok.NoArgsConstructor;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-public class LoginDto {
-    @NotBlank
-    private String userEmail;
-    @NotBlank
-    private String userPassword;
+public class LoginResponseDto {
+    private String token;
+    private int experTime;
+    private User user;
 }
