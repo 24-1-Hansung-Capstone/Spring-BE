@@ -1,13 +1,10 @@
-//package com.example.HansungCapstone.Repository.Login;
-//
-//import com.example.HansungCapstone.DTO.Login.UserDto;
-//import org.springframework.data.jpa.repository.JpaRepository;
-//
-//import java.util.Optional;
-//
-//public interface UserRepository extends JpaRepository<UserDto, Long> {
-//
-//    boolean existsByUserId(String userId);
-//    boolean existsByNickname(String nickname);
-//    Optional<UserDto> findByUserId(String userId);
-//}
+package com.example.HansungCapstone.Repository.Login;
+
+import com.example.HansungCapstone.Domain.User;
+import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.stereotype.Repository;
+
+@Repository
+public interface UserRepository extends JpaRepository<User, String> {
+    public boolean existsByUserEmailAndUserPassword(String userEmail, String userPassword);
+}

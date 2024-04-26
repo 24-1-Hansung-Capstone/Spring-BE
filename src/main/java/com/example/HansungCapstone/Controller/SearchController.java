@@ -7,7 +7,6 @@ import com.example.HansungCapstone.Service.Apply.APTApplyService;
 import com.example.HansungCapstone.Service.Es.EsSearchService;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.scheduling.annotation.EnableScheduling;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.web.bind.annotation.*;
 
@@ -48,4 +47,5 @@ public class SearchController {
     public Optional<HouseApply> findApply() throws IOException{
        return aptApplyService.getApplyById("포제스 한강");
     }
+
 }

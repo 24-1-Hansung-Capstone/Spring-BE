@@ -2,7 +2,7 @@
 //
 //import com.example.HansungCapstone.DTO.Login.JoinDto;
 //import com.example.HansungCapstone.DTO.Login.LoginDto;
-//import com.example.HansungCapstone.DTO.Login.UserDto;
+//import com.example.HansungCapstone.Domain.User;
 //import com.example.HansungCapstone.Repository.Login.UserRepository;
 //import jakarta.transaction.Transactional;
 //import lombok.RequiredArgsConstructor;
@@ -63,15 +63,15 @@
 //     *  화면에서 LoginRequest(userId, password)을 입력받아 userId password가 일치하면 UserDto return
 //     *  userId 존재하지 않거나 password가 일치하지 않으면 null return
 //     */
-//    public UserDto login(LoginDto req) {
-//        Optional<UserDto> optionalUser = userRepository.findByUserId(req.getUserId());
+//    public User login(LoginDto req) {
+//        Optional<User> optionalUser = userRepository.findByUserId(req.getUserId());
 //
 //        // userId와 일치하는 UserDto가 없으면 null return
 //        if(optionalUser.isEmpty()) {
 //            return null;
 //        }
 //
-//        UserDto user = optionalUser.get();
+//        User user = optionalUser.get();
 //
 //        // 찾아온 UserDto의 password와 입력된 password가 다르면 null return
 //        if(!user.getPassword().equals(req.getPassword())) {
@@ -87,10 +87,10 @@
 //     * userId가 null이거나(로그인 X) userId로 찾아온 UserDto가 없으면 null return
 //     * userId로 찾아온 UserDto가 존재하면 UserDto return
 //     */
-//    public UserDto getLoginUserById(Long userId) {
+//    public User getLoginUserById(Long userId) {
 //        if(userId == null) return null;
 //
-//        Optional<UserDto> optionalUser = userRepository.findById(userId);
+//        Optional<User> optionalUser = userRepository.findById(userId);
 //        if(optionalUser.isEmpty()) return null;
 //
 //        return optionalUser.get();
@@ -102,10 +102,10 @@
 //     * userId가 null이거나(로그인 X) userId로 찾아온 UserDto가 없으면 null return
 //     * userId로 찾아온 UserDto가 존재하면 UserDto return
 //     */
-//    public UserDto getLoginUserByLoginId(String userId) {
+//    public User getLoginUserByLoginId(String userId) {
 //        if(userId == null) return null;
 //
-//        Optional<UserDto> optionalUser = userRepository.findByUserId(userId);
+//        Optional<User> optionalUser = userRepository.findByUserId(userId);
 //        if(optionalUser.isEmpty()) return null;
 //
 //        return optionalUser.get();
