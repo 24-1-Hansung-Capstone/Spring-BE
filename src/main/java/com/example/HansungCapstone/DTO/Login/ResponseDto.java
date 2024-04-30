@@ -17,4 +17,12 @@ public class ResponseDto<D> {
     public static <D> ResponseDto<D> setFailed(String message) {
         return ResponseDto.set(false, message, null);
     }
+
+    public static <D> ResponseDto<D> setSuccessData(String message, D data) {
+        return ResponseDto.set(true, message, data);
+    }
+
+    public static <D> ResponseDto<D> setFailedData(String message, D data) {
+        return ResponseDto.set(false, message, data);
+    }
 }

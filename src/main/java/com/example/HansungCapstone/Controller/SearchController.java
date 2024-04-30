@@ -48,7 +48,6 @@ public class SearchController {
     public Optional<HouseApply> findApply(@RequestParam(name = "house_NM") String house_NM,
                                           @RequestParam(name = "hssply_ADRES") String hssply_ADES
                                           ) throws IOException{
-        //gma.....
        return aptApplyService.getApplyById(house_NM);
     }
 
