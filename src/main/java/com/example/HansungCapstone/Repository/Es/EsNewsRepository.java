@@ -22,6 +22,7 @@ public class EsNewsRepository{
 
         SearchResponse<EsNewsDto> search = elasticsearchClient.search(s -> s
                         .index("news")
+                        .size(10000)
                         .query(q -> q
                                 .term(t -> t
                                         .field("mainBody")
