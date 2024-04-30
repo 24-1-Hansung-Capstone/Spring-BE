@@ -44,6 +44,7 @@ public class EsVisitkoreaRepository{
 
         SearchResponse<EsVisitkoreaDto> search = elasticsearchClient.search(s -> s
                         .index("visitkorea")
+                        .size(10000)
                         .query(q -> q
                                 .bool(b -> b
                                         .should(byLocation)
