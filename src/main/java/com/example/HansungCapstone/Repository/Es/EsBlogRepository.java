@@ -34,6 +34,7 @@ public class EsBlogRepository{
 //                EsBlogDto.class);
         SearchResponse<EsBlogDto> search = elasticsearchClient.search(s -> s
                         .index("blog")
+                        .size(10000)
                         .query(q -> q
                                 .fuzzy(f -> f
                                         .field("mainBody")
