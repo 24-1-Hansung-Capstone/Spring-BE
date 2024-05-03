@@ -47,6 +47,9 @@ public class EsVisitkoreaDto implements EsDto {
         catch (IndexOutOfBoundsException iobe) {
             preview = description;
         }
+        catch (NullPointerException npe) {
+            preview = "";
+        }
         return preview;
     }
 
