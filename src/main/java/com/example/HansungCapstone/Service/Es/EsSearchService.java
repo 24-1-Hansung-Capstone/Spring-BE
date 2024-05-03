@@ -57,4 +57,10 @@ public class EsSearchService {
 
         return esDtoWrappers;
     }
+
+
+    public List<String> getRelatedWords(){
+
+        return null;
+    }
 }

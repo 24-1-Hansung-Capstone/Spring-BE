@@ -25,12 +25,12 @@ public class Realty {
     @NotNull
     private String addr;
     @NotNull
-    private Type type;
+    private int type;
 
     private String content;
 
     @Builder
-    public Realty(String name, String addr, Type type) {
+    public Realty(String name, String addr, int type) {
         this.name = name;
         this.addr = addr;
         this.type = type;

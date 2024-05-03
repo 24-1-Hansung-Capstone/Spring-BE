@@ -2,7 +2,6 @@ package com.example.HansungCapstone.Controller;
 
 import com.example.HansungCapstone.DTO.HomesOffice.Realty;
 import com.example.HansungCapstone.DTO.HomesOffice.RealtyDto;
-import com.example.HansungCapstone.DTO.HomesOffice.Type;
 import com.example.HansungCapstone.Service.HomesOffice.HomesOfficeService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
@@ -19,6 +18,7 @@ public class HomesOfficeController {
 
     @PostMapping("/register")
     public void register(@RequestBody RealtyDto realtyDto) {
+        System.out.println(realtyDto.getType());
         homesOfficeService.register(realtyDto);
     }
 
@@ -33,7 +33,7 @@ public class HomesOfficeController {
     }
 
     @GetMapping("/type")
-    public List<Realty> findByType(@RequestParam Type type) {
+    public List<Realty> findByType(@RequestParam int type) {
         return homesOfficeService.findByType(type);
     }
 }

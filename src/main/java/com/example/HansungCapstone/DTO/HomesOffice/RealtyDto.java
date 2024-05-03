@@ -9,15 +9,14 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @AllArgsConstructor
 public class RealtyDto {
-
     private int id;
     private String name;
     private String addr;
-    private Type type;
+    private int type;
     private String content;
 
     @Builder
-    public RealtyDto(String name, String addr, Type type) {
+    public RealtyDto(String name, String addr, int type) {
         this.name = name;
         this.addr = addr;
         this.type = type;
