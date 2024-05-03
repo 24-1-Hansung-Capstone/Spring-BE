@@ -1,4 +1,4 @@
-package com.example.HansungCapstone.DTO.Homes;
+package com.example.HansungCapstone.DTO.HomesOffice;
 
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
