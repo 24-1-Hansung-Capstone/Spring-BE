@@ -1,4 +1,4 @@
-package com.example.HansungCapstone.DTO.Homes;
+package com.example.HansungCapstone.DTO.HomesOffice;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
