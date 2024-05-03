@@ -42,8 +42,7 @@ public class ChatAndSummaryRepository {
                 .bodyValue(Map.of("result", searchResult))
                 .retrieve()
                 .bodyToMono(String.class);
-        var res = response.block();
-        System.out.println(res);
-        return res; // 동기적으로 응답을 받기 위해 block() 사용 (실제 서비스에서는 이 방식을 사용하지 않는 것이 좋습니다)
+
+        return response.block(); // 동기적으로 응답을 받기 위해 block() 사용 (실제 서비스에서는 이 방식을 사용하지 않는 것이 좋습니다)
     }
 }
