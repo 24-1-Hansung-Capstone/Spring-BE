@@ -11,6 +11,12 @@ java {
 	sourceCompatibility = '17'
 }
 
+configurations {
+	compileOnly {
+		extendsFrom annotationProcessor
+	}
+}
+
 repositories {
 	mavenCentral()
 }
@@ -20,14 +26,16 @@ dependencies {
 	//implementation 'org.springframework.boot:spring-boot-starter-security'
 	implementation 'org.springframework.boot:spring-boot-starter-data-jpa'
 //	implementation 'jakarta.servlet:jakarta.servlet-api:6.0.0'
-
-	testImplementation 'org.springframework.boot:spring-boot-starter-test'
-
+	implementation 'io.netty:netty-resolver-dns-native-macos:4.1.68.Final:osx-aarch_64'
 	compileOnly 'org.projectlombok:lombok:1.18.30'
 	annotationProcessor 'org.projectlombok:lombok:1.18.30'
 
+	// FOR @ConfigurationProperties
+	annotationProcessor "org.springframework.boot:spring-boot-configuration-processor"
 	testCompileOnly 'org.projectlombok:lombok:1.18.30'
 	testAnnotationProcessor 'org.projectlombok:lombok:1.18.30'
+	testImplementation 'org.springframework.boot:spring-boot-starter-test'
+	testImplementation 'io.rest-assured:rest-assured:5.3.0'
 
 	implementation 'co.elastic.clients:elasticsearch-java:8.12.2'
 	implementation 'com.fasterxml.jackson.core:jackson-databind:2.16.1'
@@ -44,4 +52,9 @@ dependencies {
 
 tasks.named('test') {
 	useJUnitPlatform()
+}
+
+// FOR @ConfigurationProperties
+tasks.named('compileJava') {
+	inputs.files(tasks.named('processResources'))
 }

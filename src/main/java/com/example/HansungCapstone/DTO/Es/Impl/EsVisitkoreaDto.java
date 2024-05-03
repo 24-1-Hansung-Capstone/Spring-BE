@@ -17,20 +17,24 @@ import org.springframework.data.elasticsearch.annotations.FieldType;
 public class EsVisitkoreaDto implements EsDto {
 
     @Field(type = FieldType.Text)
+    private String Title;
+
+    @Field(type = FieldType.Text)
+    private String Location;
+
+    @Field(type = FieldType.Text)
+    private String Description;
+
+    @Field(type = FieldType.Text)
+    private String Tags;
+
+    private String PhotoURL;   //HyperLink
+
     private String title;
-
-    @Field(type = FieldType.Text)
     private String location;
-
-    @Field(type = FieldType.Text)
     private String description;
-
-    @Field(type = FieldType.Text)
     private String tags;
-
-    private String photoURL;   //HyperLink
-
-    private String url;
+    private String photoURL;
 
     private double score;
 
