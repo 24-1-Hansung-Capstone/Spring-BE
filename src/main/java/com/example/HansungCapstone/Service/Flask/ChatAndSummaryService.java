@@ -1,8 +1,11 @@
 package com.example.HansungCapstone.Service.Flask;
 
+import com.example.HansungCapstone.DTO.Es.EsDtoWrapper;
 import com.example.HansungCapstone.Repository.Flask.ChatAndSummaryRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
+import java.util.List;
 
 @Service
 public class ChatAndSummaryService {
@@ -18,7 +21,7 @@ public class ChatAndSummaryService {
         return chatAndSummaryRepository.sendChatRequest(question);
     }
 
-    public String resultSummrayRequest() {
-        return chatAndSummaryRepository.sendSummaryRequest();
+    public String resultSummrayRequest(List<EsDtoWrapper> searchResult) {
+        return chatAndSummaryRepository.sendSummaryRequest(searchResult);
     }
 }
