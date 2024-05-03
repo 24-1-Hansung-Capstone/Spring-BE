@@ -7,6 +7,7 @@ import com.example.HansungCapstone.Service.Flask.ChatAndSummaryService;
 
 @RestController
 @RequestMapping("/nlpModel")
+@CrossOrigin(origins = {"http://localhost:3000", })
 public class NLPModelController {
 
     @Autowired
