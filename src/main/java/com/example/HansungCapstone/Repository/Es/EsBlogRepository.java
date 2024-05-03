@@ -1,6 +1,7 @@
 package com.example.HansungCapstone.Repository.Es;
 
 import co.elastic.clients.elasticsearch.ElasticsearchClient;
+import co.elastic.clients.elasticsearch._types.aggregations.Aggregation;
 import co.elastic.clients.elasticsearch._types.query_dsl.FuzzyQuery;
 import co.elastic.clients.elasticsearch.core.SearchResponse;
 import com.example.HansungCapstone.DTO.Es.EsDto;
@@ -37,6 +38,7 @@ public class EsBlogRepository{
                         .size(10000)
                         .query(q -> q
                                 .fuzzy(f -> f
+                                        .field("title")
                                         .field("mainBody")
                                         .value(query)
                                         .fuzziness("AUTO")
@@ -53,5 +55,25 @@ public class EsBlogRepository{
 
         return results;
     }
+
+//    public List<String> getRelatedWord(String query) throws IOException {
+//        SearchResponse<EsBlogDto> search = elasticsearchClient.search(s -> s
+//                        .index("blog")
+//                        .size(10000)
+//                        .query(q -> q
+//                                .fuzzy(f -> f
+//                                        .field("title")
+//                                        .field("mainBody")
+//                                        .value(query)
+//                                        .fuzziness("AUTO")
+//                                )
+//                        )
+//                        .aggregations("relatedWord", a-> a
+//                                .significantTerms(t -> t.field("mainBody"))
+//                        ),
+//                EsBlogDto.class);
+//
+//        System.out.println(search);
+//    }
 
 }
