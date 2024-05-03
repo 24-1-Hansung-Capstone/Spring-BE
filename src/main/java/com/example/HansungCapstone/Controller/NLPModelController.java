@@ -13,6 +13,9 @@ public class NLPModelController {
     @Autowired
     private final ChatAndSummaryService chatAndSummaryService;
 
+    @Autowired
+    private SearchController searchController;
+
     public NLPModelController(ChatAndSummaryService chatAndSummaryService) {
         this.chatAndSummaryService = chatAndSummaryService;
     }
@@ -24,7 +27,7 @@ public class NLPModelController {
 
     @PostMapping("/summary")
     public String docSummary() {
-        return chatAndSummaryService.resultSummrayRequest();
+        return chatAndSummaryService.resultSummrayRequest(searchController.getSearchResult());
     }
 
     @PostMapping("/sentimental")

@@ -6,6 +6,7 @@ import com.example.HansungCapstone.Repository.Apply.Impl.APTApplyRepository;
 import com.example.HansungCapstone.Service.Apply.APTApplyService;
 import com.example.HansungCapstone.Service.Es.EsSearchService;
 
+import lombok.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.web.bind.annotation.*;
@@ -16,8 +17,9 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.Optional;
 
+@Getter
 @RestController
-@CrossOrigin(origins = {"http://localhost:3000",}) // TODO : cors 설정 필요할 수 있음
+@CrossOrigin(origins = {"http://localhost:3000","http://223.194.156.178:3000"}) // TODO : cors 설정 필요할 수 있음
 public class SearchController {
 
     @Autowired
@@ -27,11 +29,13 @@ public class SearchController {
     @Autowired
     private APTApplyService aptApplyService;
 
+    private List<EsDtoWrapper> searchResult;
+
 
     @GetMapping("/search")
     public List<EsDtoWrapper> search(@RequestParam String query) throws IOException {
-
-        return esSearchService.search(query);
+        searchResult = esSearchService.search(query);
+        return searchResult;
     }
 
     @GetMapping("/getAllApply")
