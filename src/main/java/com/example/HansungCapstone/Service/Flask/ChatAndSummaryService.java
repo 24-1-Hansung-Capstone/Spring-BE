@@ -15,6 +15,10 @@ public class ChatAndSummaryService {
     }
 
     public String sendChatRequest(String question) {
-        return chatAndSummaryRepository.sendRequestToExternalServer(question);
+        return chatAndSummaryRepository.sendChatRequest(question);
+    }
+
+    public String resultSummrayRequest() {
+        return chatAndSummaryRepository.sendSummaryRequest();
     }
 }

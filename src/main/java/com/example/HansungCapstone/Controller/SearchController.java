@@ -11,6 +11,8 @@ import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.web.bind.annotation.*;
 
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 import java.util.Optional;
 
@@ -49,6 +51,15 @@ public class SearchController {
                                           @RequestParam(name = "hssply_ADRES") String hssply_ADES
                                           ) throws IOException{
        return aptApplyService.getApplyById(house_NM);
+    }
+
+    @GetMapping("/relatedWord")
+    public ArrayList<String> findApply(@RequestParam(name = "query") String query){
+        ArrayList<String> arrays = new ArrayList<>();
+        for(int i = 0; i < 5; i++){
+            arrays.add(query + i);
+        }
+        return arrays;
     }
 
 }

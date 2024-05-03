@@ -6,17 +6,29 @@ import org.springframework.web.bind.annotation.*;
 import com.example.HansungCapstone.Service.Flask.ChatAndSummaryService;
 
 @RestController
-public class ChatAndSummaryController {
+@RequestMapping("/nlpModel")
+@CrossOrigin(origins = {"http://localhost:3000", })
+public class NLPModelController {
 
     @Autowired
     private final ChatAndSummaryService chatAndSummaryService;
 
-    public ChatAndSummaryController(ChatAndSummaryService chatAndSummaryService) {
+    public NLPModelController(ChatAndSummaryService chatAndSummaryService) {
         this.chatAndSummaryService = chatAndSummaryService;
     }
 
     @PostMapping("/chat")
     public String sendChatRequest(@RequestParam String question) {
         return chatAndSummaryService.sendChatRequest(question);
+    }
+
+    @PostMapping("/summary")
+    public String docSummary() {
+        return chatAndSummaryService.resultSummrayRequest();
+    }
+
+    @PostMapping("/sentimental")
+    public String measureSentimental() {
+        return null;
     }
 }
