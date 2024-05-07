@@ -58,12 +58,9 @@ public class SearchController {
     }
 
     @GetMapping("/relatedWord")
-    public ArrayList<String> findApply(@RequestParam(name = "query") String query){
-        ArrayList<String> arrays = new ArrayList<>();
-        for(int i = 0; i < 5; i++){
-            arrays.add(query + i);
-        }
-        return arrays;
+    public List<String> findApply(@RequestParam(name = "query") String query) throws IOException {
+
+        return esSearchService.getRelatedWords(query);
     }
 
 }

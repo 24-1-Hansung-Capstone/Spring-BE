@@ -59,8 +59,11 @@ public class EsSearchService {
     }
 
 
-    public List<String> getRelatedWords(){
+    public List<String> getRelatedWords(String query) throws IOException {
 
-        return null;
+        List<String> relatedWords = new ArrayList<>();
+        relatedWords.addAll(esBlogRepository.getRelatedWords(query));
+        relatedWords.addAll(esNewsRepository.getRelatedWords(query));
+        return relatedWords;
     }
 }

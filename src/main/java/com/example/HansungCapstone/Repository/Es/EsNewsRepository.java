@@ -3,6 +3,7 @@ package com.example.HansungCapstone.Repository.Es;
 import co.elastic.clients.elasticsearch.ElasticsearchClient;
 import co.elastic.clients.elasticsearch.core.SearchResponse;
 import com.example.HansungCapstone.DTO.Es.EsDto;
+import com.example.HansungCapstone.DTO.Es.Impl.EsBlogDto;
 import com.example.HansungCapstone.DTO.Es.Impl.EsNewsDto;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
@@ -37,6 +38,10 @@ public class EsNewsRepository{
         }
 
         return results;
+    }
+
+    public List<String> getRelatedWords(String query) throws IOException {
+        return new ArrayList<>();
     }
 
 }
