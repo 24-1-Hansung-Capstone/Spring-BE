@@ -17,8 +17,8 @@ public class ChatAndSummaryService {
         this.chatAndSummaryRepository = chatAndSummaryRepository;
     }
 
-    public String sendChatRequest(String question) {
-        return chatAndSummaryRepository.sendChatRequest(question);
+    public String getSentimental(String target) {
+        return chatAndSummaryRepository.sendSentimentalRequest(target);
     }
 
     public String resultSummrayRequest(List<EsDtoWrapper> searchResult) {

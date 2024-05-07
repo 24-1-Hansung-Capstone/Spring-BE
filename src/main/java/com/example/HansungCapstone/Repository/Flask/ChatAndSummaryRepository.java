@@ -1,6 +1,5 @@
 package com.example.HansungCapstone.Repository.Flask;
 
-import com.example.HansungCapstone.DTO.Es.EsDto;
 import com.example.HansungCapstone.DTO.Es.EsDtoWrapper;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Repository;
@@ -22,12 +21,12 @@ public class ChatAndSummaryRepository {
     @Value("${flask.protocol}")
     private String protocol;
 
-    public String sendChatRequest(String question) {
+    public String sendSentimentalRequest(String target) {
         WebClient client = WebClient.create(protocol + "://" + url + ":" + port);
 
         Mono<String> response = client.post()
-                .uri("/chat")
-                .bodyValue(Map.of("question", question))
+                .uri("/sentimental")
+                .bodyValue(Map.of("target", target))
                 .retrieve()
                 .bodyToMono(String.class);
 
