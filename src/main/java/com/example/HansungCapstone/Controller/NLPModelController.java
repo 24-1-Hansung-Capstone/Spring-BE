@@ -20,10 +20,6 @@ public class NLPModelController {
         this.chatAndSummaryService = chatAndSummaryService;
     }
 
-    @PostMapping("/chat")
-    public String sendChatRequest(@RequestParam String question) {
-        return chatAndSummaryService.sendChatRequest(question);
-    }
 
     @PostMapping("/summary")
     public String docSummary() {
@@ -31,7 +27,7 @@ public class NLPModelController {
     }
 
     @PostMapping("/sentimental")
-    public String measureSentimental() {
-        return null;
+    public String measureSentimental(@RequestBody String target) {
+        return chatAndSummaryService.getSentimental(target);
     }
 }
