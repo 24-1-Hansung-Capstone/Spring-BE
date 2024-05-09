@@ -1,58 +1,58 @@
-# This workflow uses actions that are not certified by GitHub.
-# They are provided by a third-party and are governed by
-# separate terms of service, privacy policy, and support
-# documentation.
-# This workflow will build a package using Gradle and then publish it to GitHub packages when a release is created
-# For more information see: https://github.com/actions/setup-java/blob/main/docs/advanced-usage.md#Publishing-using-gradle
+# # This workflow uses actions that are not certified by GitHub.
+# # They are provided by a third-party and are governed by
+# # separate terms of service, privacy policy, and support
+# # documentation.
+# # This workflow will build a package using Gradle and then publish it to GitHub packages when a release is created
+# # For more information see: https://github.com/actions/setup-java/blob/main/docs/advanced-usage.md#Publishing-using-gradle
 
-name: Build project and Auto Publish on EC2
-run-name : 제발 배포되주세요 ㅠㅠ
+# name: Build project and Auto Publish on EC2
+# run-name : 제발 배포되주세요 ㅠㅠ
 
-on:
-  push:
-    branches: 
-      - main
+# on:
+#   push:
+#     branches: 
+#       - main
 
-env:
-  AWS_REGION: ap-northeast-2
-  AWS_S3_BUCKET: cicd-spring
-  AWS_CODE_DEPLOY_APPLICATION: cicd-spring
-  AWS_CODE_DEPLOY_GROUP: cicd-group
+# env:
+#   AWS_REGION: ap-northeast-2
+#   AWS_S3_BUCKET: cicd-spring
+#   AWS_CODE_DEPLOY_APPLICATION: cicd-spring
+#   AWS_CODE_DEPLOY_GROUP: cicd-group
       
-jobs:
-  build-with-gradle:
-    runs-on: ubuntu-22.04
+# jobs:
+#   build-with-gradle:
+#     runs-on: ubuntu-22.04
 
-    steps:
-    - name: move to main branch
-      uses: actions/checkout@v4
-      with:
-        ref: main
+#     steps:
+#     - name: move to main branch
+#       uses: actions/checkout@v4
+#       with:
+#         ref: main
       
-    - name: Set up JDK 17
-      uses: actions/setup-java@v4
-      with:
-        java-version: '17'
-        distribution: 'corretto'
+#     - name: Set up JDK 17
+#       uses: actions/setup-java@v4
+#       with:
+#         java-version: '17'
+#         distribution: 'corretto'
 
-    - name: setting gradle
-      run: chmod +x ./gradlew
+#     - name: setting gradle
+#       run: chmod +x ./gradlew
 
-    - name: Build with Gradle
-      run: ./gradlew build -x test
+#     - name: Build with Gradle
+#       run: ./gradlew build -x test
 
-    - name: setting AWS credetial
-      uses: aws-actions/configure-aws-credentials@v1
-      with:
-        aws-region: ap-northeast-2
-        aws-access-key-id: ${{ secrets.CICD_PUBLIC_KEY }}
-        aws-secret-access-key : ${{ secrets.CICD_PRIVATE_KEY }}
+#     - name: setting AWS credetial
+#       uses: aws-actions/configure-aws-credentials@v1
+#       with:
+#         aws-region: ap-northeast-2
+#         aws-access-key-id: ${{ secrets.CICD_PUBLIC_KEY }}
+#         aws-secret-access-key : ${{ secrets.CICD_PRIVATE_KEY }}
 
-    - name: shell script chmod
-      run: chmod +x ./scripts/start.sh; chmod +x ./scripts/stop.sh; 
+#     - name: shell script chmod
+#       run: chmod +x ./scripts/start.sh; chmod +x ./scripts/stop.sh; 
 
-    - name: upload on S3
-      run: aws deploy push --application-name ${{ env.AWS_CODE_DEPLOY_APPLICATION }} --ignore-hidden-files --s3-location s3://$AWS_S3_BUCKET/cicdtest/$GITHUB_SHA.zip --source .
-    - name: publish on EC2
-      run: aws deploy create-deployment --application-name ${{ env.AWS_CODE_DEPLOY_APPLICATION }} --deployment-config-name CodeDeployDefault.AllAtOnce --deployment-group-name ${{ env.AWS_CODE_DEPLOY_GROUP }} --s3-location bucket=$AWS_S3_BUCKET,key=cicdtest/$GITHUB_SHA.zip,bundleType=zip
+#     - name: upload on S3
+#       run: aws deploy push --application-name ${{ env.AWS_CODE_DEPLOY_APPLICATION }} --ignore-hidden-files --s3-location s3://$AWS_S3_BUCKET/cicdtest/$GITHUB_SHA.zip --source .
+#     - name: publish on EC2
+#       run: aws deploy create-deployment --application-name ${{ env.AWS_CODE_DEPLOY_APPLICATION }} --deployment-config-name CodeDeployDefault.AllAtOnce --deployment-group-name ${{ env.AWS_CODE_DEPLOY_GROUP }} --s3-location bucket=$AWS_S3_BUCKET,key=cicdtest/$GITHUB_SHA.zip,bundleType=zip
 
