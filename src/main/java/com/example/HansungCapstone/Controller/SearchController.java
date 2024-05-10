@@ -29,8 +29,7 @@ public class SearchController {
     @Autowired
     private APTApplyService aptApplyService;
 
-    private List<EsDtoWrapper> searchResult;
-
+    private List<EsDtoWrapper> searchResult = new ArrayList<>();
 
     @GetMapping("/search")
     public List<EsDtoWrapper> search(@RequestParam String query) throws IOException {

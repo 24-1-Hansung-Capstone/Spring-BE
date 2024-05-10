@@ -1,11 +1,13 @@
 package com.example.HansungCapstone.DTO.Es;
 
+import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 import lombok.Setter;
 import lombok.ToString;
 
 import java.lang.reflect.Field;
 
+@Getter
 @Setter
 @ToString
 public class EsDtoWrapper{

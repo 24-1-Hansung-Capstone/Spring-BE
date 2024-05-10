@@ -78,6 +78,7 @@ public class EsBlogRepository{
 
         List<String> relatedWords = new ArrayList<>();
         for(var buc:  search.aggregations().get("relatedWord").sigsterms().buckets().array()){
+            //버켓 스코어 평균 이상만 뽑도록 바꿀 것
             if(buc.score() > 1.1 && !query.equals(buc.key())) relatedWords.add(buc.key());
         }
 

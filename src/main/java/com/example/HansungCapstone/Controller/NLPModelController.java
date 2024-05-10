@@ -5,6 +5,8 @@ import org.springframework.web.bind.annotation.*;
 
 import com.example.HansungCapstone.Service.Flask.ChatAndSummaryService;
 
+import java.util.List;
+
 @RestController
 @RequestMapping("/nlpModel")
 @CrossOrigin(origins = {"http://localhost:3000", })
@@ -22,7 +24,7 @@ public class NLPModelController {
 
 
     @PostMapping("/summary")
-    public String docSummary() {
+    public List<String> docSummary() {
         return chatAndSummaryService.resultSummrayRequest(searchController.getSearchResult());
     }
 
