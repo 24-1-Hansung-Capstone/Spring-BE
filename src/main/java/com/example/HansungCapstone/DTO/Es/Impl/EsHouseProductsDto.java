@@ -3,31 +3,31 @@ package com.example.HansungCapstone.DTO.Es.Impl;
 import com.example.HansungCapstone.DTO.Es.EsDto;
 import lombok.*;
 import org.springframework.data.elasticsearch.annotations.Document;
-import org.springframework.data.elasticsearch.annotations.Field;
-import org.springframework.data.elasticsearch.annotations.FieldType;
 
 @Getter
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
 @ToString
-@Document(indexName = "visitkorea")
-public class EsVisitkoreaDto implements EsDto {
+@Document(indexName = "houseproducts")
+public class EsHouseProductsDto implements EsDto {
     private String title;
+    private String url;
+    private String mode;
+    private String price;
+    private String desc;
+    private String option;
     private String location;
-    private String description;
-    private String tags;
-    private String photoURL;
 
     private double score;
 
     @Override
     public String getPreview() {
-        return this.description;
+        return desc;
     }
 
     @Override
     public String getCategory() {
-        return "visitkorea";
+        return "houseproducts";
     }
 }
