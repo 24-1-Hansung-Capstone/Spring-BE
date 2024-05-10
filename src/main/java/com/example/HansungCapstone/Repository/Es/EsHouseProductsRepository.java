@@ -24,9 +24,9 @@ public class EsHouseProductsRepository {
                         .index("houseproducts")
                         .size(10000)
                         .query(q -> q
-                                .term(t -> t
+                                .match(t -> t
                                         .field("location")
-                                        .value(v -> v.stringValue(query))
+                                        .query(query)
                                 )),
                 EsHouseProductsDto.class);
 
@@ -34,12 +34,13 @@ public class EsHouseProductsRepository {
             EsHouseProductsDto res = hit.source();
             res.setScore(hit.score());
             results.add(res);
+            System.out.println(res);
         }
 
         return results;
     }
-//
-//    public List<String> getRelatedWords(String query) throws IOException {
-//        return new ArrayList<>();
-//    }
+
+    public List<String> getRelatedWords(String query) throws IOException {
+        return new ArrayList<>();
+    }
 }

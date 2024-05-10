@@ -1,16 +1,14 @@
 package com.example.HansungCapstone.DTO.Es.Impl;
 
 import com.example.HansungCapstone.DTO.Es.EsDto;
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.*;
 import org.springframework.data.elasticsearch.annotations.Document;
 
 @Getter
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
+@ToString
 @Document(indexName = "houseproducts")
 public class EsHouseProductsDto implements EsDto {
     private String title;
@@ -25,7 +23,7 @@ public class EsHouseProductsDto implements EsDto {
 
     @Override
     public String getPreview() {
-        return desc.substring(0, 50);
+        return desc;
     }
 
     @Override
