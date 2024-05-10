@@ -2,8 +2,8 @@ package com.example.HansungCapstone.Service.Es;
 
 import com.example.HansungCapstone.DTO.Es.EsDto;
 import com.example.HansungCapstone.DTO.Es.EsDtoWrapper;
-import com.example.HansungCapstone.DTO.Es.Impl.EsBlogDto;
 import com.example.HansungCapstone.Repository.Es.EsBlogRepository;
+import com.example.HansungCapstone.Repository.Es.EsHouseProductsRepository;
 import com.example.HansungCapstone.Repository.Es.EsNewsRepository;
 import com.example.HansungCapstone.Repository.Es.EsVisitkoreaRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -25,12 +25,16 @@ public class EsSearchService {
     @Autowired
     private EsVisitkoreaRepository esVisitkoreaRepository;
 
+    @Autowired
+    private EsHouseProductsRepository esHouseProductsRepository;
+
     public List<EsDtoWrapper> search(String query) throws IOException {
         //repo search
         List<EsDto> esDtos = new ArrayList<>();
         esDtos.addAll(esVisitkoreaRepository.search(query));
         esDtos.addAll(esBlogRepository.search(query));
         esDtos.addAll(esNewsRepository.search(query));
+        esDtos.addAll(esHouseProductsRepository.search(query));
 
         //results
         List<EsDtoWrapper> esDtoWrappers = new ArrayList<>();
