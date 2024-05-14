@@ -1,7 +1,10 @@
 package com.example.HansungCapstone.Service.Es;
 
+import co.elastic.clients.elasticsearch._types.aggregations.SignificantStringTermsBucket;
+import co.elastic.clients.elasticsearch.core.SearchResponse;
 import com.example.HansungCapstone.DTO.Es.EsDto;
 import com.example.HansungCapstone.DTO.Es.EsDtoWrapper;
+import com.example.HansungCapstone.DTO.Es.Impl.EsBlogDto;
 import com.example.HansungCapstone.Repository.Es.EsBlogRepository;
 import com.example.HansungCapstone.Repository.Es.EsHouseProductsRepository;
 import com.example.HansungCapstone.Repository.Es.EsNewsRepository;
@@ -65,8 +68,36 @@ public class EsSearchService {
 
     public List<String> getRelatedWords(String query) throws IOException {
         List<String> relatedWords = new ArrayList<>();
-        relatedWords.addAll(esBlogRepository.getRelatedWords(query));
-        relatedWords.addAll(esNewsRepository.getRelatedWords(query));
+
+        getRelatedWordsByScore(query, esBlogRepository.getRelatedBuckets(query), relatedWords);
+        getRelatedWordsByScore(query, esNewsRepository.getRelatedBuckets(query), relatedWords);
+
+        return relatedWords;
+    }
+
+    public List<String> getRelatedWordsByScore(String query, List<SignificantStringTermsBucket> buckets, List<String> relatedWords){
+        buckets.sort((bucket1, bucket2) -> Double.compare(bucket2.score(), bucket1.score()));
+
+        for(var buc : buckets){
+            int centi = 0;
+
+            if (query.equals(buc.key())){
+                continue;
+            }
+
+            for (String s : relatedWords){
+                if (buc.key().equals(s)) {
+                    centi = 1;
+                    break;
+                }
+            }
+
+            if(centi == 0){
+                relatedWords.add(buc.key());
+                if(relatedWords.size() == 5) break;
+            }
+        }
+
         return relatedWords;
     }
 }

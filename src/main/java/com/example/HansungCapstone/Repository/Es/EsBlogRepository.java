@@ -1,18 +1,15 @@
 package com.example.HansungCapstone.Repository.Es;
 
 import co.elastic.clients.elasticsearch.ElasticsearchClient;
-import co.elastic.clients.elasticsearch._types.aggregations.Aggregate;
+import co.elastic.clients.elasticsearch._types.aggregations.SignificantStringTermsBucket;
 import co.elastic.clients.elasticsearch.core.SearchResponse;
 import com.example.HansungCapstone.DTO.Es.EsDto;
 import com.example.HansungCapstone.DTO.Es.Impl.EsBlogDto;
-import jakarta.json.Json;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 @Repository
 public class EsBlogRepository{
@@ -57,7 +54,7 @@ public class EsBlogRepository{
         return results;
     }
 
-    public List<String> getRelatedWords(String query) throws IOException {
+    public List<SignificantStringTermsBucket> getRelatedBuckets(String query) throws IOException {
         SearchResponse<EsBlogDto> search = elasticsearchClient.search(s -> s
                         .index("blog")
                         .size(10000)
@@ -76,13 +73,7 @@ public class EsBlogRepository{
                         ),
                 EsBlogDto.class);
 
-        List<String> relatedWords = new ArrayList<>();
-        for(var buc:  search.aggregations().get("relatedWord").sigsterms().buckets().array()){
-            //버켓 스코어 평균 이상만 뽑도록 바꿀 것
-            if(buc.score() > 1.1 && !query.equals(buc.key())) relatedWords.add(buc.key());
-        }
-
-        return relatedWords;
+        return search.aggregations().get("relatedWord").sigsterms().buckets().array();
     }
 
 }
