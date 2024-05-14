@@ -20,9 +20,7 @@ public class EsNewsDto implements EsDto {
     private double score;
 
     @Override
-    public String getPreview() {
-        return mainBody.substring(0, 50);
-    }
+    public String getPreview() {return mainBody;}
 
     @Override
     public String getCategory() {
