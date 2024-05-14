@@ -19,7 +19,6 @@ public class AuthService {
         String userEmail = dto.getUserEmail();
         String userPassword = dto.getUserPassword();
         String userPasswordCheck = dto.getUserPasswordCheck();
-        User user = new User(dto); // User 생성
 
         // email 중복 확인
         try {
@@ -34,14 +33,16 @@ public class AuthService {
             return ResponseDto.setFailed("패스워드가 일치하지 않습니다!");
         } // userPassword와 userPasswordCheck가 일치하지 않으면 실패문 출력
 
+        User user = new User(dto); // User 생성
+
+        // UserRepository를 이용해서 DB에 Entity 저쟝
         try {
-            // UserRepository를 이용해서 DB에 Entity 저쟝
             userRepository.save(user);
         } catch (Exception e) {
-            ResponseDto.setFailed("데이터베이스 연결에 실패하였습니다.");
+            return ResponseDto.setFailed("데이터베이스 연결에 실패하였습니다.");
         }
 
-        return ResponseDto.setSuccess("회원가입에 성공했습니다!", null);
+        return ResponseDto.setSuccess("회원가입에 성공했습니다!");
     }
 
     public ResponseDto<LoginResponseDto> login(LoginDto dto) {
