@@ -58,7 +58,10 @@ public class EsHouseProductsRepository {
                         )
                         .aggregations("relatedWord", a-> a
                                 .significantTerms(t -> t
-                                        .field("mainBody")
+                                        .field("title")
+                                        .field("mode")
+                                        .field("desc")
+                                        .field("location")
                                 )
                         ),
                 EsHouseProductsDto.class);
