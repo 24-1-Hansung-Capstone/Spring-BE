@@ -78,6 +78,12 @@ public class EsSearchService {
     public List<String> getRelatedWordsByScore(String query, List<SignificantStringTermsBucket> buckets, List<String> relatedWords){
         buckets.sort((bucket1, bucket2) -> Double.compare(bucket2.score(), bucket1.score()));
         System.out.println(buckets);
+        double total = 0;
+        for(var buc : buckets){
+            total += buc.score();
+        }
+        double avg = total / buckets.size()
+
 
         for(var buc : buckets){
             int centi = 0;
@@ -95,7 +101,7 @@ public class EsSearchService {
 
             if(centi == 0 ){
                 relatedWords.add(buc.key());
-                if(relatedWords.size() == 5 || buc.score() < 1.7) break;
+                if(relatedWords.size() == 5 || buc.score() <= avg) break;
             }
         }
 
