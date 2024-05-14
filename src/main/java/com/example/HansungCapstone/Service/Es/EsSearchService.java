@@ -82,7 +82,7 @@ public class EsSearchService {
         for(var buc : buckets){
             total += buc.score();
         }
-        double avg = total / buckets.size()
+        double avg = total / buckets.size();
 
 
         for(var buc : buckets){
