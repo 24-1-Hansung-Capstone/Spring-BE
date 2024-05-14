@@ -71,6 +71,7 @@ public class EsSearchService {
 
         getRelatedWordsByScore(query, esBlogRepository.getRelatedBuckets(query), relatedWords);
         getRelatedWordsByScore(query, esNewsRepository.getRelatedBuckets(query), relatedWords);
+        getRelatedWordsByScore(query, esHouseProductsRepository.getRelatedBuckets(query), relatedWords);
 
         return relatedWords;
     }
