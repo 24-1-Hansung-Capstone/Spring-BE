@@ -12,7 +12,10 @@ import java.io.IOException;
 import java.util.List;
 
 @RestController
-@CrossOrigin(origins = {"http://localhost:3000",}) // TODO : cors 설정 필요할 수 있음
+@CrossOrigin(origins = {
+        "http://localhost:3000", // 로컬 개발 환경
+        "http://13.125.234.8:3000" // 배포환경
+})
 public class SatisfactionController {
     @Autowired
     private EsSatisfactionService esSatisfactionService;
