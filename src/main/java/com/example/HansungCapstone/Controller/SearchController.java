@@ -19,7 +19,10 @@ import java.util.Optional;
 
 @Getter
 @RestController
-@CrossOrigin(origins = {"http://localhost:3000","http://223.194.156.178:3000"}) // TODO : cors 설정 필요할 수 있음
+@CrossOrigin(origins = {
+        "http://localhost:3000", // 로컬 개발 환경
+        "http://13.125.234.8:3000" // 배포환경
+})
 public class SearchController {
 
     @Autowired
@@ -59,7 +62,8 @@ public class SearchController {
     @GetMapping("/relatedWord")
     public List<String> findApply(@RequestParam(name = "query") String query) throws IOException {
 
-        return esSearchService.getRelatedWords(query);
+//        return esSearchService.getRelatedWords(query);
+        return new ArrayList<>();
     }
 
 }

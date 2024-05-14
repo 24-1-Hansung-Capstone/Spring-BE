@@ -9,7 +9,10 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/nlpModel")
-@CrossOrigin(origins = {"http://localhost:3000", })
+@CrossOrigin(origins = {
+        "http://localhost:3000", // 로컬 개발 환경
+        "http://13.125.234.8:3000" // 배포환경
+})
 public class NLPModelController {
 
     @Autowired

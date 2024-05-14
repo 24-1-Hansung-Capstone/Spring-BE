@@ -64,7 +64,6 @@ public class EsSearchService {
 
 
     public List<String> getRelatedWords(String query) throws IOException {
-
         List<String> relatedWords = new ArrayList<>();
         relatedWords.addAll(esBlogRepository.getRelatedWords(query));
         relatedWords.addAll(esNewsRepository.getRelatedWords(query));
