@@ -50,6 +50,7 @@ public class EsHouseProductsRepository {
                                         .field("title")
                                         .field("mode")
                                         .field("desc")
+                                        .field("location")
                                         .field("option")
                                         .value(query)
                                         .fuzziness("AUTO")
