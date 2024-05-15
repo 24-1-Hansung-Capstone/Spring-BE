@@ -52,6 +52,7 @@ public class EsHouseProductsRepository {
                                 ))
                         .aggregations("relatedWord", a-> a
                                 .significantTerms(t -> t
+                                        .field("mode")
                                         .field("desc")
                                         .field("location")
                                 )
