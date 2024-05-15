@@ -47,11 +47,7 @@ public class EsHouseProductsRepository {
                         .size(10000)
                         .query(q -> q
                                 .fuzzy(f -> f
-                                        .field("title")
-                                        .field("mode")
-                                        .field("desc")
                                         .field("location")
-                                        .field("option")
                                         .value(query)
                                         .fuzziness("AUTO")
                                 )
