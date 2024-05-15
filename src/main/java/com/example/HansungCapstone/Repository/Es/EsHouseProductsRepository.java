@@ -46,12 +46,10 @@ public class EsHouseProductsRepository {
                         .index("houseproducts")
                         .size(10000)
                         .query(q -> q
-                                .fuzzy(f -> f
+                                .match(t -> t
                                         .field("location")
-                                        .value(query)
-                                        .fuzziness("AUTO")
-                                )
-                        )
+                                        .query(query)
+                                ))
                         .aggregations("relatedWord", a-> a
                                 .significantTerms(t -> t
                                         .field("desc")
