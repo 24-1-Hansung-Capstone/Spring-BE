@@ -48,8 +48,10 @@ public class AuthService {
     public ResponseDto<LoginResponseDto> login(LoginDto dto) {
         String userEmail = dto.getUserEmail();
         String userPassword = dto.getUserPassword();
+
         try{
-        boolean existed = userRepository.existsByUserEmailAndUserPassword(userEmail,userPassword);
+            // 사용자 id/password 일치하는지 확인
+            boolean existed = userRepository.existsByUserEmailAndUserPassword(userEmail,userPassword);
         if(!existed) {
             return ResponseDto.setFailed("입력하신 로그인 정보가 존재하지 않습니다.");
         }
@@ -58,6 +60,7 @@ public class AuthService {
         }
 
         User user = null;
+
         try {
             // 값이 존재하면
             user = userRepository.findById(userEmail).get(); // 사용자 이메일을 가져옴
@@ -66,7 +69,8 @@ public class AuthService {
         }
         user.setUserPassword("");
 
-        String token = tokenProvider.createJwt(userEmail);
+        String token="";
+        //String token = tokenProvider.createJwt(userEmail);
         int exprTime = 3600000; // 한 시간
 
         LoginResponseDto loginResponseDto = new LoginResponseDto(token, exprTime, user);
