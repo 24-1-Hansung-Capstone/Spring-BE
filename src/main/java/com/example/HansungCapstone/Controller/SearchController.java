@@ -62,8 +62,8 @@ public class SearchController {
     @GetMapping("/relatedWord")
     public List<String> findApply(@RequestParam(name = "query") String query) throws IOException {
 
-//        return esSearchService.getRelatedWords(query);
-        return new ArrayList<>();
+        return esSearchService.getRelatedWords(query);
+        //return new ArrayList<>();
     }
 
 }

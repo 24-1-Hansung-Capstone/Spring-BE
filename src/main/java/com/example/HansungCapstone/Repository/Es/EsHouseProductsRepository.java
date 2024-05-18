@@ -1,6 +1,7 @@
 package com.example.HansungCapstone.Repository.Es;
 
 import co.elastic.clients.elasticsearch.ElasticsearchClient;
+import co.elastic.clients.elasticsearch._types.aggregations.SignificantStringTermsBucket;
 import co.elastic.clients.elasticsearch.core.SearchResponse;
 import com.example.HansungCapstone.DTO.Es.EsDto;
 import com.example.HansungCapstone.DTO.Es.Impl.EsHouseProductsDto;
@@ -40,7 +41,24 @@ public class EsHouseProductsRepository {
         return results;
     }
 
-    public List<String> getRelatedWords(String query) throws IOException {
-        return new ArrayList<>();
+    public List<SignificantStringTermsBucket> getRelatedBuckets(String query) throws IOException {
+        SearchResponse<EsHouseProductsDto> search = elasticsearchClient.search(s -> s
+                        .index("houseproducts")
+                        .size(10000)
+                        .query(q -> q
+                                .match(t -> t
+                                        .field("location")
+                                        .query(query)
+                                ))
+                        .aggregations("relatedWord", a-> a
+                                .significantTerms(t -> t
+                                        .field("mode")
+                                        .field("desc")
+                                        .field("location")
+                                )
+                        ),
+                EsHouseProductsDto.class);
+
+        return search.aggregations().get("relatedWord").sigsterms().buckets().array();
     }
 }

@@ -40,6 +40,12 @@ public class ChatAndSummaryService {
             if(newsDtos.size() == summaryResponse) break;
         }
 
+        if(newsDtos.size() == 0){
+            List<String> result = new ArrayList<>();
+            result.add("뉴스 검색 결과가 없습니다");
+            return result;
+        }
+
         String responseJson = chatAndSummaryRepository.sendSummaryRequest(newsDtos);
         ObjectMapper mapper = new ObjectMapper();
         try{
@@ -52,7 +58,7 @@ public class ChatAndSummaryService {
             return result;
         } catch (Exception e) {
             List<String> result = new ArrayList<>();
-            result.add("[ '요약 중 오류가 발생했습니다.' ]");
+            result.add("요약 중 오류가 발생했습니다.");
             return result;
         }
     }

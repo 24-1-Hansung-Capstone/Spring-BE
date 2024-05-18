@@ -1,7 +1,10 @@
 package com.example.HansungCapstone.Service.Es;
 
+import co.elastic.clients.elasticsearch._types.aggregations.SignificantStringTermsBucket;
+import co.elastic.clients.elasticsearch.core.SearchResponse;
 import com.example.HansungCapstone.DTO.Es.EsDto;
 import com.example.HansungCapstone.DTO.Es.EsDtoWrapper;
+import com.example.HansungCapstone.DTO.Es.Impl.EsBlogDto;
 import com.example.HansungCapstone.Repository.Es.EsBlogRepository;
 import com.example.HansungCapstone.Repository.Es.EsHouseProductsRepository;
 import com.example.HansungCapstone.Repository.Es.EsNewsRepository;
@@ -65,8 +68,45 @@ public class EsSearchService {
 
     public List<String> getRelatedWords(String query) throws IOException {
         List<String> relatedWords = new ArrayList<>();
-        relatedWords.addAll(esBlogRepository.getRelatedWords(query));
-        relatedWords.addAll(esNewsRepository.getRelatedWords(query));
+
+        getRelatedWordsByScore(query, esBlogRepository.getRelatedBuckets(query), relatedWords);
+        getRelatedWordsByScore(query, esNewsRepository.getRelatedBuckets(query), relatedWords);
+        getRelatedWordsByScore(query, esHouseProductsRepository.getRelatedBuckets(query), relatedWords);
+
+        return relatedWords;
+    }
+
+    public List<String> getRelatedWordsByScore(String query, List<SignificantStringTermsBucket> buckets, List<String> relatedWords){
+        buckets.sort((bucket1, bucket2) -> Double.compare(bucket2.score(), bucket1.score()));
+        System.out.println(buckets);
+        double total = 0;
+        for(var buc : buckets){
+            total += buc.score();
+        }
+        double avg = total / buckets.size();
+
+
+        for(var buc : buckets){
+            int centi = 0;
+
+            if (query.equals(buc.key())){
+                continue;
+            }
+
+            for (String s : relatedWords){
+                //들어갈 조건 검사
+                if (buc.key().equals(s) || buc.key().length() == 1) {
+                    centi = 1;
+                    break;
+                }
+            }
+
+            if(centi == 0){
+                relatedWords.add(buc.key());
+                if(relatedWords.size() == 5 || buc.score() <= avg) break;
+            }
+        }
+
         return relatedWords;
     }
 }
