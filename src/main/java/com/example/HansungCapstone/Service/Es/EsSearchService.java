@@ -94,13 +94,14 @@ public class EsSearchService {
             }
 
             for (String s : relatedWords){
-                if (buc.key().equals(s)) {
+                //들어갈 조건 검사
+                if (buc.key().equals(s) || buc.key().length() == 1) {
                     centi = 1;
                     break;
                 }
             }
 
-            if(centi == 0 ){
+            if(centi == 0){
                 relatedWords.add(buc.key());
                 if(relatedWords.size() == 5 || buc.score() <= avg) break;
             }
