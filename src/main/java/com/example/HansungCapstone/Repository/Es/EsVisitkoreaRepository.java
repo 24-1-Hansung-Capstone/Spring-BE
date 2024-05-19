@@ -7,6 +7,7 @@ import co.elastic.clients.elasticsearch.core.SearchResponse;
 import com.example.HansungCapstone.DTO.Es.EsDto;
 import com.example.HansungCapstone.DTO.Es.Impl.EsVisitkoreaDto;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Repository;
 
 import java.io.IOException;
@@ -18,6 +19,9 @@ public class EsVisitkoreaRepository{
 
     @Autowired
     private ElasticsearchClient elasticsearchClient;
+
+    @Value("${elasticsearch.searchResultNumber}")
+    private int SEARCHRESULTCOUNTNUMBER;
 
     public List<EsDto> search(String query) throws IOException {
         ArrayList<EsDto> results = new ArrayList<>();
@@ -44,7 +48,7 @@ public class EsVisitkoreaRepository{
 
         SearchResponse<EsVisitkoreaDto> search = elasticsearchClient.search(s -> s
                         .index("visitkorea")
-                        .size(10000)
+                        .size(SEARCHRESULTCOUNTNUMBER)
                         .query(q -> q
                                 .bool(b -> b
                                         .should(byLocation)

@@ -6,6 +6,7 @@ import co.elastic.clients.elasticsearch.core.SearchResponse;
 import com.example.HansungCapstone.DTO.Es.EsDto;
 import com.example.HansungCapstone.DTO.Es.Impl.EsBlogDto;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Repository;
 
 import java.io.IOException;
@@ -16,6 +17,9 @@ public class EsBlogRepository{
 
     @Autowired
     private ElasticsearchClient elasticsearchClient;
+
+    @Value("${elasticsearch.searchResultNumber}")
+    private int SEARCHRESULTCOUNTNUMBER;
 
     public List<EsDto> search(String query) throws IOException {
         ArrayList<EsDto> results = new ArrayList<>();
@@ -33,7 +37,7 @@ public class EsBlogRepository{
 //                EsBlogDto.class);
         SearchResponse<EsBlogDto> search = elasticsearchClient.search(s -> s
                         .index("blog")
-                        .size(10000)
+                        .size(SEARCHRESULTCOUNTNUMBER)
                         .query(q -> q
                                 .fuzzy(f -> f
                                         .field("title")
