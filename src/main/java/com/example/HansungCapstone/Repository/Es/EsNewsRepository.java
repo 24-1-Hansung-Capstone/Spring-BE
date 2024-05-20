@@ -7,6 +7,7 @@ import com.example.HansungCapstone.DTO.Es.EsDto;
 import com.example.HansungCapstone.DTO.Es.Impl.EsBlogDto;
 import com.example.HansungCapstone.DTO.Es.Impl.EsNewsDto;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Repository;
 
 import java.io.IOException;
@@ -19,12 +20,15 @@ public class EsNewsRepository{
     @Autowired
     private ElasticsearchClient elasticsearchClient;
 
+    @Value("${elasticsearch.searchResultNumber}")
+    private int SEARCHRESULTCOUNTNUMBER;
+
     public List<EsDto> search(String query) throws IOException {
         ArrayList<EsDto> results = new ArrayList<>();
 
         SearchResponse<EsNewsDto> search = elasticsearchClient.search(s -> s
                         .index("news")
-                        .size(10000)
+                        .size(SEARCHRESULTCOUNTNUMBER)
                         .query(q -> q
                                 .term(t -> t
                                         .field("mainBody")
