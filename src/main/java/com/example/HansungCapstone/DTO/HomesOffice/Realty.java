@@ -30,9 +30,10 @@ public class Realty {
     private String content;
 
     @Builder
-    public Realty(String name, String addr, int type) {
+    public Realty(String name, String addr, int type, String content) {
         this.name = name;
         this.addr = addr;
         this.type = type;
+        this.content = content;
     }
 }

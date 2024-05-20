@@ -16,9 +16,10 @@ public class RealtyDto {
     private String content;
 
     @Builder
-    public RealtyDto(String name, String addr, int type) {
+    public RealtyDto(String name, String addr, int type, String content) {
         this.name = name;
         this.addr = addr;
         this.type = type;
+        this.content = content;
     }
 }
