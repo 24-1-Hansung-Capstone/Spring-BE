@@ -10,5 +10,6 @@ import java.util.List;
 public interface HomesOfficeRepository extends JpaRepository<Realty, Integer> {
     List<Realty> findByType(int type);
     List<Realty> findByName(String name);
+    List<Realty> findByWriter(String writer);
     List<Realty> findAll();
 }

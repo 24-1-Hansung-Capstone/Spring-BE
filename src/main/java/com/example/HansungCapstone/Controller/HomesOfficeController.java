@@ -39,4 +39,9 @@ public class HomesOfficeController {
     public List<Realty> findByType(@RequestParam int type) {
         return homesOfficeService.findByType(type);
     }
+
+    @GetMapping("/writer")
+    public List<Realty> findByWriter(@RequestParam String writer) {
+        return homesOfficeService.findByWriter(writer);
+    }
 }

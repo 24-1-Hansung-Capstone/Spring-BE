@@ -25,14 +25,17 @@ public class Realty {
     @NotNull
     private String addr;
     @NotNull
+    private String writer;
+    @NotNull
     private int type;
 
     private String content;
 
     @Builder
-    public Realty(String name, String addr, int type, String content) {
+    public Realty(String name, String addr, String writer, int type, String content) {
         this.name = name;
         this.addr = addr;
+        this.writer = writer;
         this.type = type;
         this.content = content;
     }

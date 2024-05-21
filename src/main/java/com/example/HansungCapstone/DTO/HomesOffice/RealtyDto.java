@@ -12,13 +12,15 @@ public class RealtyDto {
     private int id;
     private String name;
     private String addr;
+    private String writer;
     private int type;
     private String content;
 
     @Builder
-    public RealtyDto(String name, String addr, int type, String content) {
+    public RealtyDto(String name, String addr, String writer, int type, String content) {
         this.name = name;
         this.addr = addr;
+        this.writer = writer;
         this.type = type;
         this.content = content;
     }

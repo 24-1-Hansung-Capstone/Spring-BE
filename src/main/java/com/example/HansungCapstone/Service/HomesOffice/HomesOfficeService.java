@@ -18,6 +18,7 @@ public class HomesOfficeService {
         Realty realty = new Realty();
         realty.setName(realtyDto.getName());
         realty.setAddr(realtyDto.getAddr());
+        realty.setWriter(realtyDto.getWriter());
         realty.setType(realtyDto.getType());
         realty.setContent(realtyDto.getContent());
         homesOfficeRepository.save(realty);
@@ -38,4 +39,9 @@ public class HomesOfficeService {
     public List<Realty> findByName(String name) {
         return homesOfficeRepository.findByName(name);
     }
+
+    public List<Realty> findByWriter(String writer) {
+        return homesOfficeRepository.findByWriter(writer);
+    }
+
 }
