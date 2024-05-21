@@ -1,11 +1,13 @@
 package com.example.HansungCapstone.Service.HomesOffice;
 
 import com.example.HansungCapstone.DTO.HomesOffice.Realty;
+import com.example.HansungCapstone.DTO.HomesOffice.RealtyComment;
 import com.example.HansungCapstone.DTO.HomesOffice.RealtyDto;
 import com.example.HansungCapstone.Repository.HomesOffice.HomesOfficeRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Service
@@ -44,4 +46,10 @@ public class HomesOfficeService {
         return homesOfficeRepository.findByWriter(writer);
     }
 
+    public void addComment(int realtyId, String comment) {
+    }
+
+    public List<RealtyComment> sendComments(int realtyId) {
+        return new ArrayList<>();
+    }
 }

@@ -1,14 +1,14 @@
 package com.example.HansungCapstone.DTO.HomesOffice;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
+import jakarta.persistence.*;
 import jakarta.validation.constraints.NotNull;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+
+import java.util.ArrayList;
+import java.util.List;
 
 @Data
 @Entity
@@ -28,6 +28,10 @@ public class Realty {
     private String writer; // 매물글 작성자
     @NotNull
     private int type;
+
+
+    @OneToMany
+    private List<RealtyComment> realtyComments = new ArrayList<>();
 
     private String content;
 
