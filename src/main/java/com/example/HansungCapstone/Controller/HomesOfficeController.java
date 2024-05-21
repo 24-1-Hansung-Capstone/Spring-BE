@@ -44,6 +44,7 @@ public class HomesOfficeController {
     @GetMapping("/writer")
     public List<Realty> findByWriter(@RequestParam String writer) {
         return homesOfficeService.findByWriter(writer);
+    }
 
     @GetMapping("/sendComment")
     public void addComment(@RequestParam String comment, @RequestParam int realtyId) {
