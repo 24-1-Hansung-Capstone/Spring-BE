@@ -5,15 +5,13 @@ import com.example.HansungCapstone.DTO.Login.LoginResponseDto;
 import com.example.HansungCapstone.DTO.Login.ResponseDto;
 import com.example.HansungCapstone.DTO.Login.SignupDto;
 import com.example.HansungCapstone.Domain.User;
-import com.example.HansungCapstone.Repository.Login.UserRepository;
-import com.example.HansungCapstone.Security.TokenProvider;
+import com.example.HansungCapstone.Repository.Login.UserRepository; 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 @Service
 public class AuthService {
     @Autowired UserRepository userRepository;
-    @Autowired TokenProvider tokenProvider;
 
     public ResponseDto<?> signUp(SignupDto dto) {
         String userEmail = dto.getUserEmail();
