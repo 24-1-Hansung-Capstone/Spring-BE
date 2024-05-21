@@ -25,7 +25,7 @@ public class Realty {
     @NotNull
     private String addr;
     @NotNull
-    private String writer;
+    private String writer; // 매물글 작성자
     @NotNull
     private int type;
 
