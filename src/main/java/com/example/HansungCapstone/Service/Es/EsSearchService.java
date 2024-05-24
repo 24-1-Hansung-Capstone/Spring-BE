@@ -95,7 +95,7 @@ public class EsSearchService {
 
             for (String s : relatedWords){
                 //들어갈 조건 검사
-                if (buc.key().equals(s) || buc.key().length() == 1) {
+                if (buc.key().equals(s) || buc.key().length() == 1 || buc.docCount() < 20) {
                     centi = 1;
                     break;
                 }
