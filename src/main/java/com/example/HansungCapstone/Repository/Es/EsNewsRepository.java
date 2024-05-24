@@ -53,13 +53,12 @@ public class EsNewsRepository{
     public List<SignificantStringTermsBucket> getRelatedBuckets(String query) throws IOException {
         SearchResponse<EsNewsDto> search = elasticsearchClient.search(s -> s
                         .index("news")
-                        .size(10000)
-                        .query(q -> q
-                                .fuzzy(f -> f
-                                        .field("title")
-                                        .field("mainBody")
-                                        .value(query)
-                                        .fuzziness("AUTO")
+                        .size(SEARCHRESULTCOUNTNUMBER)
+                        .query(q->q
+                                .multiMatch(v -> v
+                                        .fields("mainBody", "title^2")
+                                        .type(TextQueryType.MostFields)
+                                        .query(query)
                                 )
                         )
                         .aggregations("relatedWord", a-> a
