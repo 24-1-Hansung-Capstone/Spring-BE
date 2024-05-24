@@ -3,6 +3,7 @@ package com.example.HansungCapstone.Controller;
 import com.example.HansungCapstone.DTO.HomesOffice.Realty;
 import com.example.HansungCapstone.DTO.HomesOffice.RealtyComment;
 import com.example.HansungCapstone.DTO.HomesOffice.RealtyDto;
+import com.example.HansungCapstone.Service.HomesOffice.CommentService;
 import com.example.HansungCapstone.Service.HomesOffice.HomesOfficeService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
@@ -19,6 +20,7 @@ public class HomesOfficeController {
 
     @Autowired
     private HomesOfficeService homesOfficeService;
+    private CommentService commentService;
 
     @PostMapping("/register")
     public void register(@RequestBody RealtyDto realtyDto) {
@@ -46,13 +48,19 @@ public class HomesOfficeController {
         return homesOfficeService.findByWriter(writer);
     }
 
-    @GetMapping("/sendComment")
-    public void addComment(@RequestParam String comment, @RequestParam int realtyId) {
-        homesOfficeService.addComment(realtyId, comment);
+    @PostMapping("/sendComment")
+    public void writeComment(@RequestParam String writer, @RequestParam String comment, @RequestParam int realtyId) {
+        commentService.writeComment(writer, realtyId, comment);
     }
 
+    //댓글조회
     @GetMapping("/receiveComments")
     public List<RealtyComment> sendComments(@RequestParam int realtyId) {
-        return homesOfficeService.sendComments(realtyId);
+        return commentService.sendComments(realtyId);
+    }
+
+    @GetMapping("/deleteComment")
+    public String deleteComment(int commentId){
+        return commentService.deleteComment(commentId);
     }
 }

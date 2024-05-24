@@ -9,6 +9,7 @@ import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class HomesOfficeService {
@@ -46,10 +47,4 @@ public class HomesOfficeService {
         return homesOfficeRepository.findByWriter(writer);
     }
 
-    public void addComment(int realtyId, String comment) {
-    }
-
-    public List<RealtyComment> sendComments(int realtyId) {
-        return new ArrayList<>();
-    }
 }
