@@ -53,6 +53,7 @@ public class HomesOfficeController {
         commentService.writeComment(writer, realtyId, comment);
     }
 
+    //댓글조회
     @GetMapping("/receiveComments")
     public List<RealtyComment> sendComments(@RequestParam int realtyId) {
         return commentService.sendComments(realtyId);
