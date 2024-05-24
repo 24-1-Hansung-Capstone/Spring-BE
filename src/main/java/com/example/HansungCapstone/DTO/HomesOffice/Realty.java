@@ -28,7 +28,7 @@ public class Realty {
 
     private String content;
 
-    @OneToMany(fetch = FetchType.LAZY, mappedBy = "realty")
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "comment")
     private List<RealtyComment> realtyComments = new ArrayList<>();
 
 
