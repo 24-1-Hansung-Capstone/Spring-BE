@@ -9,7 +9,9 @@ import java.util.Optional;
 
 @Repository
 public interface CommentRepository extends JpaRepository<RealtyComment, Long> {
-    List<RealtyComment> findAllByRealty(int RealtyId);
-    Optional<RealtyComment> findByCommentId(int CommentId);
-    void deleteByCommentId(int commentId);
+    List<RealtyComment> findAllByRealty_Id(int RealtyId);
+
+    Optional<RealtyComment> findRealtyCommentById(long commentId);
+
+    void deleteRealtyCommentById(long commentId);
 }

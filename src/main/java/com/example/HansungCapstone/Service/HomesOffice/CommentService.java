@@ -40,18 +40,18 @@ public class CommentService  {
     // 글에 해당하는 전체 댓글 불러오기
     @Transactional(readOnly = true)
     public List<RealtyComment> sendComments(int realtyId) {
-        List<RealtyComment> comments = commentRepository.findAllByRealty(realtyId);
+        List<RealtyComment> comments = commentRepository.findAllByRealty_Id(realtyId);
 
         return comments;
     }
 
     // 댓글 삭제하기
     @Transactional
-    public String deleteComment(int commentId) {
-        RealtyComment comment = commentRepository.findByCommentId(commentId).orElseThrow(()-> {
+    public String deleteComment(long commentId) {
+        RealtyComment comment = commentRepository.findRealtyCommentById(commentId).orElseThrow(()-> {
             return new IllegalArgumentException("댓글 Id를 찾을 수 없습니다.");
         });
-        commentRepository.deleteByCommentId(commentId);
+        commentRepository.deleteRealtyCommentById(commentId);
         return "삭제 완료";
     }
 }
