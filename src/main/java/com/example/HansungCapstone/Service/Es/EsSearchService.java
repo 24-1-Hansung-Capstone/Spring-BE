@@ -116,7 +116,7 @@ public class EsSearchService {
 
             for (String s : relatedWords){
                 //들어갈 조건 검사
-                if (buc.key().equals(s) || buc.key().length() == 1) {
+                if (buc.key().equals(s) || buc.key().length() == 1 || buc.score() < avg) {
                     centi = 1;
                     break;
                 }
@@ -124,7 +124,7 @@ public class EsSearchService {
 
             if(centi == 0){
                 relatedWords.add(buc.key());
-                if(relatedWords.size() == 7 || buc.score() < avg) break;
+                if(relatedWords.size() == 7) break;
             }
         }
 
