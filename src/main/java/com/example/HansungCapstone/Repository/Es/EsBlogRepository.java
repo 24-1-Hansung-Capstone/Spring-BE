@@ -24,29 +24,19 @@ public class EsBlogRepository{
     public List<EsDto> search(String query) throws IOException {
         ArrayList<EsDto> results = new ArrayList<>();
 
-//        SearchResponse<EsBlogDto> search = elasticsearchClient.search(s -> s
-//                        .index("blog")
-//                        .query(q -> q
-//                                .fuzzy(FuzzyQuery.of(FuzzyQuery)_)
-//                                .term(t -> t
-//                                        .field("mainBody")
-//                                        .value(v -> v.stringValue(query))
-//
-//                                )
-//                        ) ,
-//                EsBlogDto.class);
         SearchResponse<EsBlogDto> search = elasticsearchClient.search(s -> s
                         .index("blog")
                         .size(SEARCHRESULTCOUNTNUMBER)
                         .query(q -> q
-                                .fuzzy(f -> f
-                                        .field("title")
-                                        .field("mainBody")
-                                        .value(query)
+                                .match(v -> v
                                         .fuzziness("AUTO")
+                                        .field("mainBody")
+                                        .field("title")
+                                        .query(query)
                                 )
                         ),
-                EsBlogDto.class);
+                EsBlogDto.class
+        );
 
 
         for (var hit: search.hits().hits()) {

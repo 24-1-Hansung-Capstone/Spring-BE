@@ -26,15 +26,27 @@ public class EsNewsRepository{
     public List<EsDto> search(String query) throws IOException {
         ArrayList<EsDto> results = new ArrayList<>();
 
+//        SearchResponse<EsNewsDto> search = elasticsearchClient.search(s -> s
+//                        .index("news")
+//                        .size(SEARCHRESULTCOUNTNUMBER)
+//                        .query(q -> q
+//                                .term(t -> t
+//                                        .field("mainBody")
+//                                        .value(v -> v.stringValue(query))
+//                                )),
+//                EsNewsDto.class);
         SearchResponse<EsNewsDto> search = elasticsearchClient.search(s -> s
-                        .index("news")
-                        .size(SEARCHRESULTCOUNTNUMBER)
-                        .query(q -> q
-                                .term(t -> t
-                                        .field("mainBody")
-                                        .value(v -> v.stringValue(query))
-                                )),
-                EsNewsDto.class);
+                    .index("news")
+                    .size(SEARCHRESULTCOUNTNUMBER)
+                    .query(q->q
+                        .match(m -> m
+                            .field("mainBody")
+                            .field("title")
+                            .query(query)
+                        )
+                    )
+                ,EsNewsDto.class
+        );
 
         for (var hit: search.hits().hits()) {
             EsNewsDto res = hit.source();
