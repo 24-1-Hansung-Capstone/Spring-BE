@@ -15,6 +15,7 @@ import org.springframework.stereotype.Service;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Comparator;
+import java.util.Iterator;
 import java.util.List;
 
 @Service
@@ -73,6 +74,26 @@ public class EsSearchService {
         getRelatedWordsByScore(query, esNewsRepository.getRelatedBuckets(query), relatedWords);
         getRelatedWordsByScore(query, esHouseProductsRepository.getRelatedBuckets(query), relatedWords);
 
+        // 반복문을 통해 요소를 처리
+        for (int i = 0; i < relatedWords.size(); i++) {
+            String nElement = relatedWords.get(i);
+
+            // Iterator를 사용해 리스트 요소를 순회하며 삭제
+            Iterator<String> iterator = relatedWords.iterator();
+            while (iterator.hasNext()) {
+                String currentElement = iterator.next();
+                // 현재 요소가 n번째 요소와 같거나, n번째 요소의 일부 문자열을 포함하면 삭제
+                if (currentElement.equals(nElement) || currentElement.contains(nElement)) {
+                    iterator.remove();
+                }
+            }
+
+            // n번째 요소는 다시 추가 (제거된 후 다시 추가하는 방식)
+            relatedWords.add(i, nElement);
+        }
+
+
+
         return relatedWords;
     }
 
@@ -103,7 +124,7 @@ public class EsSearchService {
 
             if(centi == 0){
                 relatedWords.add(buc.key());
-                if(relatedWords.size() == 5 || buc.score() <= avg) break;
+                //if(relatedWords.size() == 5) break;
             }
         }
 
