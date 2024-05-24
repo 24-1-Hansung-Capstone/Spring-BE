@@ -50,7 +50,7 @@ public class HomesOfficeController {
     }
 
     @PostMapping("/sendComment")
-    public void writeComment(@RequestParam String writer, @RequestParam String comment, @RequestParam int realtyId) {
+    public void writeComment(@RequestBody String writer, @RequestBody String comment, @RequestBody int realtyId) {
         commentService.writeComment(writer, realtyId, comment);
     }
 
