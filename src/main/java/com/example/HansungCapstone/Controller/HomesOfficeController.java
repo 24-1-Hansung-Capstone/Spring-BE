@@ -20,6 +20,7 @@ public class HomesOfficeController {
 
     @Autowired
     private HomesOfficeService homesOfficeService;
+    @Autowired
     private CommentService commentService;
 
     @PostMapping("/register")

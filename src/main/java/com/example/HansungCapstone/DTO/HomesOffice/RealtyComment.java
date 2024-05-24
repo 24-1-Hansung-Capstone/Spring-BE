@@ -20,7 +20,6 @@ public class RealtyComment {
     private String writer;
     private String comment;
 
-    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "realty_id")
     private Realty realty;
 
