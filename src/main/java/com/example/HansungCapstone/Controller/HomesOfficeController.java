@@ -1,5 +1,6 @@
 package com.example.HansungCapstone.Controller;
 
+import com.example.HansungCapstone.DTO.CommentRequest;
 import com.example.HansungCapstone.DTO.HomesOffice.Realty;
 import com.example.HansungCapstone.DTO.HomesOffice.RealtyComment;
 import com.example.HansungCapstone.DTO.HomesOffice.RealtyDto;
@@ -50,7 +51,11 @@ public class HomesOfficeController {
     }
 
     @PostMapping("/sendComment")
-    public void writeComment(@RequestBody String writer, @RequestBody String comment, @RequestBody int realtyId) {
+    public void writeComment(@RequestBody CommentRequest commentRequest) {
+        String writer = commentRequest.getWriter();
+        int realtyId = commentRequest.getRealtyId();
+        String comment = commentRequest.getComment();
+
         commentService.writeComment(writer, realtyId, comment);
     }
 
