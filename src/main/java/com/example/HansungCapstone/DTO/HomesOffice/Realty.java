@@ -29,18 +29,19 @@ public class Realty {
     @NotNull
     private int type;
 
-
-    @OneToMany
-    private List<RealtyComment> realtyComments = new ArrayList<>();
-
     private String content;
 
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "realty")
+    private List<RealtyComment> realtyComments = new ArrayList<>();
+
+
     @Builder
-    public Realty(String name, String addr, String writer, int type, String content) {
+    public Realty(String name, String addr, String writer, int type, String content, List<RealtyComment> realtyComments) {
         this.name = name;
         this.addr = addr;
         this.writer = writer;
         this.type = type;
         this.content = content;
+        this.realtyComments = realtyComments;
     }
 }
