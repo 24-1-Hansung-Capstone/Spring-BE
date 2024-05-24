@@ -15,7 +15,6 @@ import org.springframework.stereotype.Service;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Comparator;
-import java.util.Iterator;
 import java.util.List;
 
 @Service
@@ -96,7 +95,7 @@ public class EsSearchService {
 
             for (String s : relatedWords){
                 //들어갈 조건 검사
-                if (buc.key().equals(s) || buc.key().length() == 1 || buc.score() < avg) {
+                if (buc.key().equals(s) || buc.key().length() == 1) {
                     centi = 1;
                     break;
                 }
@@ -104,7 +103,7 @@ public class EsSearchService {
 
             if(centi == 0){
                 relatedWords.add(buc.key());
-                if(relatedWords.size() == 7) break;
+                if(relatedWords.size() == 5 || buc.score() <= avg) break;
             }
         }
 
