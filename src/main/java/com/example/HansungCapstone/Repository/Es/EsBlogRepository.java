@@ -2,9 +2,11 @@ package com.example.HansungCapstone.Repository.Es;
 
 import co.elastic.clients.elasticsearch.ElasticsearchClient;
 import co.elastic.clients.elasticsearch._types.aggregations.SignificantStringTermsBucket;
+import co.elastic.clients.elasticsearch._types.query_dsl.TextQueryType;
 import co.elastic.clients.elasticsearch.core.SearchResponse;
 import com.example.HansungCapstone.DTO.Es.EsDto;
 import com.example.HansungCapstone.DTO.Es.Impl.EsBlogDto;
+import com.example.HansungCapstone.DTO.Es.Impl.EsNewsDto;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Repository;
@@ -24,18 +26,31 @@ public class EsBlogRepository{
     public List<EsDto> search(String query) throws IOException {
         ArrayList<EsDto> results = new ArrayList<>();
 
+//        SearchResponse<EsBlogDto> search = elasticsearchClient.search(s -> s
+//                        .index("blog")
+//                        .size(SEARCHRESULTCOUNTNUMBER)
+//                        .query(q -> q
+//                                .match(v -> v
+//                                        .fuzziness("AUTO")
+//                                        .field("mainBody")
+//                                        .field("title")
+//                                        .query(query)
+//                                )
+//                        ),
+//                EsBlogDto.class
+//        );
+
         SearchResponse<EsBlogDto> search = elasticsearchClient.search(s -> s
                         .index("blog")
                         .size(SEARCHRESULTCOUNTNUMBER)
-                        .query(q -> q
-                                .match(v -> v
-                                        .fuzziness("AUTO")
-                                        .field("mainBody")
-                                        .field("title")
+                        .query(q->q
+                                .multiMatch(v -> v
+                                        .fields("mainBody", "title^2")
+                                        .type(TextQueryType.MostFields)
                                         .query(query)
                                 )
-                        ),
-                EsBlogDto.class
+                        )
+                ,EsBlogDto.class
         );
 
 
