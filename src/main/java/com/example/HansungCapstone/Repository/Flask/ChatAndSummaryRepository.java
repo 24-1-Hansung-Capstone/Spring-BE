@@ -24,8 +24,9 @@ public class ChatAndSummaryRepository {
 
     public String sendSentimentalRequest(String target) {
         WebClient client = WebClient.create(protocol + "://" + url + ":" + port);
-        
-        System.out.println(client);
+
+        System.out.println(protocol + "://" + url + ":" + port);
+        System.out.println(client.toString());
 
         Mono<String> response = client.post()
                 .uri("/sentimental")
