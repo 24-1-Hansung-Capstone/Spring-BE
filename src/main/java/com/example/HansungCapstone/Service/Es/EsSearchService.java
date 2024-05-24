@@ -124,7 +124,7 @@ public class EsSearchService {
 
             if(centi == 0){
                 relatedWords.add(buc.key());
-                //if(relatedWords.size() == 5) break;
+                if(relatedWords.size() == 7 || buc.score() < avg) break;
             }
         }
 
