@@ -20,6 +20,8 @@ public class RealtyComment {
     private String writer;
     private String comment;
 
+
+    @ManyToOne
     @JoinColumn(name = "realty_id")
     private Realty realty;
 
