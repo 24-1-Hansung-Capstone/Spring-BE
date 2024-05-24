@@ -2,6 +2,8 @@ package com.example.HansungCapstone.Repository.Es;
 
 import co.elastic.clients.elasticsearch.ElasticsearchClient;
 import co.elastic.clients.elasticsearch._types.aggregations.SignificantStringTermsBucket;
+import co.elastic.clients.elasticsearch._types.query_dsl.Operator;
+import co.elastic.clients.elasticsearch._types.query_dsl.TextQueryType;
 import co.elastic.clients.elasticsearch.core.SearchResponse;
 import com.example.HansungCapstone.DTO.Es.EsDto;
 import com.example.HansungCapstone.DTO.Es.Impl.EsBlogDto;
@@ -29,12 +31,15 @@ public class EsNewsRepository{
         SearchResponse<EsNewsDto> search = elasticsearchClient.search(s -> s
                         .index("news")
                         .size(SEARCHRESULTCOUNTNUMBER)
-                        .query(q -> q
-                                .term(t -> t
-                                        .field("mainBody")
-                                        .value(v -> v.stringValue(query))
-                                )),
-                EsNewsDto.class);
+                        .query(q->q
+                                .multiMatch(v -> v
+                                        .fields("mainBody", "title^2")
+                                        .type(TextQueryType.MostFields)
+                                        .query(query)
+                                )
+                        )
+                    ,EsNewsDto.class
+        );
 
         for (var hit: search.hits().hits()) {
             EsNewsDto res = hit.source();
@@ -48,13 +53,12 @@ public class EsNewsRepository{
     public List<SignificantStringTermsBucket> getRelatedBuckets(String query) throws IOException {
         SearchResponse<EsNewsDto> search = elasticsearchClient.search(s -> s
                         .index("news")
-                        .size(10000)
-                        .query(q -> q
-                                .fuzzy(f -> f
-                                        .field("title")
-                                        .field("mainBody")
-                                        .value(query)
-                                        .fuzziness("AUTO")
+                        .size(SEARCHRESULTCOUNTNUMBER)
+                        .query(q->q
+                                .multiMatch(v -> v
+                                        .fields("mainBody", "title^2")
+                                        .type(TextQueryType.MostFields)
+                                        .query(query)
                                 )
                         )
                         .aggregations("relatedWord", a-> a

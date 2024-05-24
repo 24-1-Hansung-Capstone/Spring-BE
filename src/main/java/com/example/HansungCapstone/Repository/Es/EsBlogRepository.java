@@ -2,9 +2,11 @@ package com.example.HansungCapstone.Repository.Es;
 
 import co.elastic.clients.elasticsearch.ElasticsearchClient;
 import co.elastic.clients.elasticsearch._types.aggregations.SignificantStringTermsBucket;
+import co.elastic.clients.elasticsearch._types.query_dsl.TextQueryType;
 import co.elastic.clients.elasticsearch.core.SearchResponse;
 import com.example.HansungCapstone.DTO.Es.EsDto;
 import com.example.HansungCapstone.DTO.Es.Impl.EsBlogDto;
+import com.example.HansungCapstone.DTO.Es.Impl.EsNewsDto;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Repository;
@@ -26,27 +28,30 @@ public class EsBlogRepository{
 
 //        SearchResponse<EsBlogDto> search = elasticsearchClient.search(s -> s
 //                        .index("blog")
+//                        .size(SEARCHRESULTCOUNTNUMBER)
 //                        .query(q -> q
-//                                .fuzzy(FuzzyQuery.of(FuzzyQuery)_)
-//                                .term(t -> t
+//                                .match(v -> v
+//                                        .fuzziness("AUTO")
 //                                        .field("mainBody")
-//                                        .value(v -> v.stringValue(query))
-//
+//                                        .field("title")
+//                                        .query(query)
 //                                )
-//                        ) ,
-//                EsBlogDto.class);
+//                        ),
+//                EsBlogDto.class
+//        );
+
         SearchResponse<EsBlogDto> search = elasticsearchClient.search(s -> s
                         .index("blog")
                         .size(SEARCHRESULTCOUNTNUMBER)
-                        .query(q -> q
-                                .fuzzy(f -> f
-                                        .field("title")
-                                        .field("mainBody")
-                                        .value(query)
-                                        .fuzziness("AUTO")
+                        .query(q->q
+                                .multiMatch(v -> v
+                                        .fields("mainBody", "title^2")
+                                        .type(TextQueryType.MostFields)
+                                        .query(query)
                                 )
-                        ),
-                EsBlogDto.class);
+                        )
+                ,EsBlogDto.class
+        );
 
 
         for (var hit: search.hits().hits()) {
@@ -61,13 +66,12 @@ public class EsBlogRepository{
     public List<SignificantStringTermsBucket> getRelatedBuckets(String query) throws IOException {
         SearchResponse<EsBlogDto> search = elasticsearchClient.search(s -> s
                         .index("blog")
-                        .size(10000)
-                        .query(q -> q
-                                .fuzzy(f -> f
-                                        .field("title")
-                                        .field("mainBody")
-                                        .value(query)
-                                        .fuzziness("AUTO")
+                        .size(SEARCHRESULTCOUNTNUMBER)
+                        .query(q->q
+                                .multiMatch(v -> v
+                                        .fields("mainBody", "title^2")
+                                        .type(TextQueryType.MostFields)
+                                        .query(query)
                                 )
                         )
                         .aggregations("relatedWord", a-> a
