@@ -6,14 +6,21 @@ import com.example.HansungCapstone.Repository.Apply.Impl.APTApplyRepository;
 import com.example.HansungCapstone.Service.Apply.APTApplyService;
 import com.example.HansungCapstone.Service.Es.EsSearchService;
 
+import com.example.HansungCapstone.Service.Es.TypoCurrectionService;
 import lombok.*;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.http.HttpHeaders;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.web.bind.annotation.*;
 
 import java.io.IOException;
+import java.io.UnsupportedEncodingException;
+import java.net.URLEncoder;
+import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 import java.util.Optional;
 
@@ -27,17 +34,46 @@ public class SearchController {
 
     @Autowired
     private EsSearchService esSearchService;
-    @Autowired
-    private APTApplyRepository aptApplyRepository;
-    @Autowired
-    private APTApplyService aptApplyService;
 
     private List<EsDtoWrapper> searchResult = new ArrayList<>();
 
+    @Autowired
+    private APTApplyRepository aptApplyRepository;
+
+    @Autowired
+    private APTApplyService aptApplyService;
+
+    @Autowired
+    private TypoCurrectionService typoCurrectionService;
+
+    @GetMapping("/errata")
+    public String errata(@RequestParam String query) {
+        return typoCurrectionService.correctTypo(query);
+    }
+
     @GetMapping("/search")
-    public List<EsDtoWrapper> search(@RequestParam String query) throws IOException {
+    public ResponseEntity<List<EsDtoWrapper>> search(@RequestParam String query) throws IOException {
+        boolean isQueryChanged = false;
+
+        // 오탈차 전처리
+        String newQuery = typoCurrectionService.correctTypo(query);
+
+        // 오탈자 수정으로 인해 변경이 발생하면, 해당 사항을 프론트에 전달
+        if (!newQuery.isEmpty() && !newQuery.equals(query)) {
+            isQueryChanged = true;
+        }
+
+        // 검색
         searchResult = esSearchService.search(query);
-        return searchResult;
+
+        // Custom header 추가
+        HttpHeaders headers = new HttpHeaders();
+        headers.add("isQueryChanged", String.valueOf(isQueryChanged));
+        if (isQueryChanged) {
+            headers.add("suggestQuery", URLEncoder.encode(newQuery, StandardCharsets.UTF_8));
+        }
+
+        return new ResponseEntity<>(searchResult, headers, HttpStatus.OK);
     }
 
     @GetMapping("/getAllApply")
