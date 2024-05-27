@@ -66,7 +66,7 @@ public class HomesOfficeController {
     }
 
     @DeleteMapping("/deleteComment")
-    public void deleteComment(@RequestParam int commentId){
-        commentService.deleteComment(commentId);
+    public List<RealtyComment>  deleteComment(@RequestParam long commentId){
+        return commentService.deleteComment(commentId);
     }
 }
