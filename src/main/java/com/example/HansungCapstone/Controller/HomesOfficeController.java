@@ -65,8 +65,8 @@ public class HomesOfficeController {
         return commentService.sendComments(realtyId);
     }
 
-    @GetMapping("/deleteComment")
-    public String deleteComment(int commentId){
-        return commentService.deleteComment(commentId);
+    @DeleteMapping("/deleteComment")
+    public void deleteComment(@RequestParam int commentId){
+        commentService.deleteComment(commentId);
     }
 }

@@ -47,11 +47,10 @@ public class CommentService  {
 
     // 댓글 삭제하기
     @Transactional
-    public String deleteComment(long commentId) {
+    public void deleteComment(long commentId) {
         RealtyComment comment = commentRepository.findRealtyCommentById(commentId).orElseThrow(()-> {
-            return new IllegalArgumentException("댓글 Id를 찾을 수 없습니다.");
+            return new IllegalArgumentException("해당 댓글이 존재하지 않습니다. id=" + commentId);
         });
-        commentRepository.deleteRealtyCommentById(commentId);
-        return "삭제 완료";
+        commentRepository.delete(comment);
     }
 }
