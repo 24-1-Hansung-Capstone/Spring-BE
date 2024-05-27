@@ -9,7 +9,6 @@ import com.example.HansungCapstone.Service.Es.EsSearchService;
 import com.example.HansungCapstone.Service.Es.TypoCurrectionService;
 import lombok.*;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -17,7 +16,6 @@ import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.web.bind.annotation.*;
 
 import java.io.IOException;
-import java.io.UnsupportedEncodingException;
 import java.net.URLEncoder;
 import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
@@ -46,11 +44,6 @@ public class SearchController {
     @Autowired
     private TypoCurrectionService typoCurrectionService;
 
-    @GetMapping("/errata")
-    public String errata(@RequestParam String query) {
-        return typoCurrectionService.correctTypo(query);
-    }
-
     @GetMapping("/search")
     public ResponseEntity<List<EsDtoWrapper>> search(@RequestParam String query) throws IOException {
         boolean isQueryChanged = false;
@@ -59,9 +52,7 @@ public class SearchController {
         String newQuery = typoCurrectionService.correctTypo(query);
 
         // 오탈자 수정으로 인해 변경이 발생하면, 해당 사항을 프론트에 전달
-        if (!newQuery.isEmpty() && !newQuery.equals(query)) {
-            isQueryChanged = true;
-        }
+        isQueryChanged = !newQuery.isEmpty();
 
         // 검색
         searchResult = esSearchService.search(query);
