@@ -50,6 +50,11 @@ public class HomesOfficeController {
         return homesOfficeService.findByWriter(writer);
     }
 
+    @DeleteMapping("/deletePost")
+    public List<Realty>  deleteComment(@RequestParam int realtyId){
+        return homesOfficeService.deletePost(realtyId);
+    }
+
     @PostMapping("/sendComment")
     public RealtyComment writeComment(@RequestBody CommentRequest commentRequest) {
         String writer = commentRequest.getWriter();

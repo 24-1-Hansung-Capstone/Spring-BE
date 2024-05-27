@@ -9,9 +9,9 @@ import java.util.Optional;
 
 @Repository
 public interface HomesOfficeRepository extends JpaRepository<Realty, Integer> {
-    List<Realty> findByType(int type);
-    Optional<Realty> findById(int id);
-    List<Realty> findByName(String name);
-    List<Realty> findByWriter(String writer);
+    List<Realty> findRealtyByType(int type);
+    Optional<Realty> findRealtyById(int id);
+    List<Realty> findRealtyByName(String name);
+    List<Realty> findRealtyByWriter(String writer);
     List<Realty> findAll();
 }

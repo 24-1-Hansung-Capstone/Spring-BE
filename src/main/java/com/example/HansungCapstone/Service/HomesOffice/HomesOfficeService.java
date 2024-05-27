@@ -35,16 +35,25 @@ public class HomesOfficeService {
 
     // 거래유형으로 매물들을 검색하는 기능
     public List<Realty> findByType(int type) {
-        return homesOfficeRepository.findByType(type);
+        return homesOfficeRepository.findRealtyByType(type);
     }
 
     // 제목으로 매물들을 검색하는 기능
     public List<Realty> findByName(String name) {
-        return homesOfficeRepository.findByName(name);
+        return homesOfficeRepository.findRealtyByName(name);
     }
 
     public List<Realty> findByWriter(String writer) {
-        return homesOfficeRepository.findByWriter(writer);
+        return homesOfficeRepository.findRealtyByWriter(writer);
     }
 
+    public List<Realty> deletePost(int realtyId) {
+        Realty realty = homesOfficeRepository.findRealtyById(realtyId).orElseThrow(()-> {
+            return new IllegalArgumentException("해당 매물글이 존재하지 않습니다. id=" + realtyId);
+        });
+
+        homesOfficeRepository.delete(realty);
+        List<Realty> realtys = homesOfficeRepository.findAll();
+        return realtys; //매물글 삭제후 나머지 매물글 반환
+    }
 }
