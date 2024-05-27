@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 @RequiredArgsConstructor
 @Service
@@ -32,9 +33,7 @@ public class CommentService  {
 
         realtyComment.setWriter(writer);
         realtyComment.setRealty(realty);
-        commentRepository.save(realtyComment);
-
-        return realtyComment;
+        return commentRepository.save(realtyComment);
     }
 
     // 글에 해당하는 전체 댓글 불러오기
@@ -44,6 +43,16 @@ public class CommentService  {
 
         return comments;
     }
+
+//    // 댓글 수정
+//    @Transactional
+//    public List<RealtyComment> updateComment(long commentId) {
+//        RealtyComment comment = commentRepository.findRealtyCommentById(commentId).orElseThrow(()-> {
+//            return new IllegalArgumentException("해당 댓글이 존재하지 않습니다. id=" + commentId);
+//        });
+//        comment.update();
+//        return comments;
+//    }
 
     // 댓글 삭제하기
     @Transactional

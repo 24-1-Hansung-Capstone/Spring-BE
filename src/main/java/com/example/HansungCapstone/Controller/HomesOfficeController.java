@@ -51,12 +51,13 @@ public class HomesOfficeController {
     }
 
     @PostMapping("/sendComment")
-    public void writeComment(@RequestBody CommentRequest commentRequest) {
+    public RealtyComment writeComment(@RequestBody CommentRequest commentRequest) {
         String writer = commentRequest.getWriter();
         int realtyId = commentRequest.getRealtyId();
         String comment = commentRequest.getComment();
 
-        commentService.writeComment(writer, realtyId, comment);
+        RealtyComment writeComment = commentService.writeComment(writer, realtyId, comment);
+        return writeComment;
     }
 
     //댓글조회
