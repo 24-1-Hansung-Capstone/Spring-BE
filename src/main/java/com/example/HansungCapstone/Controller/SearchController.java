@@ -26,7 +26,8 @@ import java.util.Optional;
 @RestController
 @CrossOrigin(origins = {
         "http://localhost:3000", // 로컬 개발 환경
-        "http://13.125.234.8:3000" // 배포환경
+        "http://13.125.234.8:3000", // 배포환경
+        "https://appassets.androidplatform.net/assets/dist/index.html", // 모바일
 })
 public class SearchController {
 
