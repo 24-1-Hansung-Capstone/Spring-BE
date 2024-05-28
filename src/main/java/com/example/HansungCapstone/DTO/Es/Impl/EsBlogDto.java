@@ -17,8 +17,30 @@ public final class EsBlogDto implements EsDto {
     private double score;
 
     @Override
-    public String getPreview() {
-        return mainBody.substring(0, 50);
+    public String getPreview(String query) {
+        if (mainBody == null || query == null || !mainBody.contains(query)) {
+            return mainBody != null ? mainBody.substring(0, Math.min(50, mainBody.length())) : "";
+        }
+
+        int queryIndex = mainBody.indexOf(query);
+        int previewLength = 50; // Total length of the preview
+        int queryLength = query.length();
+
+        int start = Math.max(0, queryIndex - (previewLength - queryLength) / 2);
+        int end = Math.min(mainBody.length(), queryIndex + queryLength + (previewLength - queryLength) / 2);
+
+        // Adjust start and end if the substring is shorter than the preview length
+        if (end - start < previewLength) {
+            if (start == 0) {
+                end = Math.min(mainBody.length(), start + previewLength);
+            } else if (end == mainBody.length()) {
+                start = Math.max(0, end - previewLength);
+            }
+        }
+
+        String preview = mainBody.substring(start, end);
+        System.out.println("query: "+ preview);
+        return preview;
     }
 
     @Override

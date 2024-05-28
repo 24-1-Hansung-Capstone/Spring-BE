@@ -22,7 +22,7 @@ public class EsHouseProductsDto implements EsDto {
     private double score;
 
     @Override
-    public String getPreview() {
+    public String getPreview(String query) {
         return desc;
     }
 

@@ -37,7 +37,7 @@ public class EsCrimeDto implements EsDto {
     private float violence_arrest;
 
     @Override
-    public String getPreview() {
+    public String getPreview(String query) {
         return null;
     }
 

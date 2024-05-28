@@ -47,7 +47,7 @@ public class EsSearchService {
 
             //set wrapper
             esDtoWrapper.setEsDto(esDto);
-            esDtoWrapper.setPreview(esDto.getPreview());
+            esDtoWrapper.setPreview(esDto.getPreview(query));
             esDtoWrapper.setCategory(esDto.getCategory());
 
             //add results

@@ -22,7 +22,7 @@ public class EsVisitkoreaDto implements EsDto {
     private double score;
 
     @Override
-    public String getPreview() {
+    public String getPreview(String query) {
         return this.description;
     }
 
