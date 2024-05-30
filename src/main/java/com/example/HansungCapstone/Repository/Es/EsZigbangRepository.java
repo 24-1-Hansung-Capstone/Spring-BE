@@ -55,31 +55,19 @@ public class EsZigbangRepository {
                 .query(query)
         )._toQuery();
 
-//        SearchResponse<EsZigbangDto> search = elasticsearchClient.search(s -> s
-//                        .index("zigbang")
-//                        .query(q -> q
-//                                .bool(b -> b
-//                                        .should(byDanjiName)
-//                                        .should(byTotalDesc)
-//                                        .should(byTrafficDesc)
-//                                        .should(byCareDesc)
-//                                        .should(byResidentDesc)
-//                                        .should(byAroundDesc)
-//                                )),
-//                EsZigbangDto.class);
-
         SearchResponse<EsZigbangDto> search = elasticsearchClient.search(s -> s
                         .index("zigbang")
-                        .size(100000)
-                        .query(q->q
-                                .multiMatch(v -> v
-                                        .fields("danji_name^2", "totalDesc")
-                                        .type(TextQueryType.MostFields)
-                                        .query(query)
-                                )
-                        )
-                ,EsZigbangDto.class
-        );
+                        .query(q -> q
+                                .bool(b -> b
+                                        .should(byDanjiName)
+                                        .should(byTotalDesc)
+                                        .should(byTrafficDesc)
+                                        .should(byCareDesc)
+                                        .should(byResidentDesc)
+                                        .should(byAroundDesc)
+                                )),
+                EsZigbangDto.class);
+
 
         for (var hit: search.hits().hits()) {
             EsZigbangDto res = hit.source();
