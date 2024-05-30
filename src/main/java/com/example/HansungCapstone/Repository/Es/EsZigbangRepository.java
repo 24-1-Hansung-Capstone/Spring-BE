@@ -73,7 +73,7 @@ public class EsZigbangRepository {
                         .size(100000)
                         .query(q->q
                                 .multiMatch(v -> v
-                                        .fields("danji_name^2", "title^2")
+                                        .fields("danji_name^2", "totalDesc")
                                         .type(TextQueryType.MostFields)
                                         .query(query)
                                 )
